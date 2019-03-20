@@ -15,6 +15,15 @@ namespace SWARMulator
         public main()
         {
             InitializeComponent();
+            new Settings();
+        }
+
+        private void loadSettings_Click(object sender, EventArgs e)
+        {
+            settingsWidth.Text = Settings.Width.ToString();
+            settingsHeight.Text = Settings.Height.ToString();
+            settingsWalls.Text = Settings.Walls.ToString();
+            settingsAnts.Text = Settings.Ants.ToString();
         }
     }
 }
