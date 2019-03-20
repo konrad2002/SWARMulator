@@ -16,6 +16,7 @@ namespace SWARMulator
         {
             InitializeComponent();
             new Settings();
+            new Ant();
             trackBarWidth.Value = Settings.Width;
             settingsWidth.Text = Settings.Width.ToString();
             trackBarHeight.Value = Settings.Height;
@@ -52,7 +53,8 @@ namespace SWARMulator
             Settings.Height = trackBarHeight.Value;
             Settings.Walls = trackBarWalls.Value;
             Settings.Ants = trackBarAnts.Value;
-
+            Ant.NumOfAnts = 0;
+            Ant.AntList = new int[Settings.Ants,3];
             this.Close();
         }
 

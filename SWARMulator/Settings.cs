@@ -13,6 +13,7 @@ namespace SWARMulator
         public static int Walls { get; set; }
         public static int Ants { get; set; }
         public static int Size { get; set; }
+        public static bool Running { get; set; }
 
         public class Base
         {
@@ -26,17 +27,13 @@ namespace SWARMulator
             public static int Y { get; set; }
         }
 
+        public void Reset()
+        {
+
+        }
+
         public Settings()
         {
-            Width = 20;
-            Height = 20;
-            Walls = 0;
-            Ants = 1;
-            Size = 30;
-            Base.X = 0;
-            Base.Y = 0;
-            Food.X = 0;
-            Food.Y = 0;
         }
     }
 }

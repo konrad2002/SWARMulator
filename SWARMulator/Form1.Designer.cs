@@ -50,6 +50,8 @@
             this.settingsFood = new System.Windows.Forms.Label();
             this.labelBase = new System.Windows.Forms.Label();
             this.labelFood = new System.Windows.Forms.Label();
+            this.SpawnAnt = new System.Windows.Forms.Button();
+            this.AntListBox = new System.Windows.Forms.ListBox();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -95,7 +97,7 @@
             this.simulationArea.Location = new System.Drawing.Point(9, 34);
             this.simulationArea.Margin = new System.Windows.Forms.Padding(2);
             this.simulationArea.Name = "simulationArea";
-            this.simulationArea.Size = new System.Drawing.Size(375, 406);
+            this.simulationArea.Size = new System.Drawing.Size(375, 456);
             this.simulationArea.TabIndex = 1;
             this.simulationArea.TabStop = false;
             this.simulationArea.Paint += new System.Windows.Forms.PaintEventHandler(this.simulationArea_Paint);
@@ -112,6 +114,7 @@
             this.btnStart.TabIndex = 2;
             this.btnStart.Text = "Simulation starten";
             this.btnStart.UseVisualStyleBackColor = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnGenerate
             // 
@@ -209,6 +212,8 @@
             // 
             // sidebar
             // 
+            this.sidebar.Controls.Add(this.AntListBox);
+            this.sidebar.Controls.Add(this.SpawnAnt);
             this.sidebar.Controls.Add(this.settingsBase);
             this.sidebar.Controls.Add(this.settingsFood);
             this.sidebar.Controls.Add(this.labelBase);
@@ -226,8 +231,13 @@
             this.sidebar.Location = new System.Drawing.Point(401, 34);
             this.sidebar.Margin = new System.Windows.Forms.Padding(2);
             this.sidebar.Name = "sidebar";
-            this.sidebar.Size = new System.Drawing.Size(206, 249);
+            this.sidebar.Size = new System.Drawing.Size(206, 456);
             this.sidebar.TabIndex = 12;
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // settingsBase
             // 
@@ -269,12 +279,36 @@
             this.labelFood.TabIndex = 13;
             this.labelFood.Text = "Futter:";
             // 
+            // SpawnAnt
+            // 
+            this.SpawnAnt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SpawnAnt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SpawnAnt.ForeColor = System.Drawing.Color.White;
+            this.SpawnAnt.Location = new System.Drawing.Point(34, 240);
+            this.SpawnAnt.Margin = new System.Windows.Forms.Padding(2);
+            this.SpawnAnt.Name = "SpawnAnt";
+            this.SpawnAnt.Size = new System.Drawing.Size(148, 29);
+            this.SpawnAnt.TabIndex = 16;
+            this.SpawnAnt.Text = "Ameise erzeugen";
+            this.SpawnAnt.UseVisualStyleBackColor = false;
+            this.SpawnAnt.Click += new System.EventHandler(this.SpawnAnt_Click);
+            // 
+            // AntListBox
+            // 
+            this.AntListBox.FormattingEnabled = true;
+            this.AntListBox.Items.AddRange(new object[] {
+            "1 ( 1 | 1 )"});
+            this.AntListBox.Location = new System.Drawing.Point(34, 274);
+            this.AntListBox.Name = "AntListBox";
+            this.AntListBox.Size = new System.Drawing.Size(148, 173);
+            this.AntListBox.TabIndex = 18;
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(627, 453);
+            this.ClientSize = new System.Drawing.Size(627, 501);
             this.Controls.Add(this.sidebar);
             this.Controls.Add(this.simulationArea);
             this.Controls.Add(this.mainMenu);
@@ -315,6 +349,8 @@
         private System.Windows.Forms.Label settingsFood;
         private System.Windows.Forms.Label labelBase;
         private System.Windows.Forms.Label labelFood;
+        private System.Windows.Forms.Button SpawnAnt;
+        private System.Windows.Forms.ListBox AntListBox;
     }
 }
 
