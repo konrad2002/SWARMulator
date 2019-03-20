@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,8 +44,11 @@
             this.settingsAnts = new System.Windows.Forms.Label();
             this.settingsWalls = new System.Windows.Forms.Label();
             this.settingsHeight = new System.Windows.Forms.Label();
+            this.sidebar = new System.Windows.Forms.Panel();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).BeginInit();
+            this.sidebar.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -76,8 +80,9 @@
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
+            this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItem_Click);
             // 
             // simulationArea
             // 
@@ -87,15 +92,16 @@
             this.simulationArea.Size = new System.Drawing.Size(500, 500);
             this.simulationArea.TabIndex = 1;
             this.simulationArea.TabStop = false;
+            this.simulationArea.Paint += new System.Windows.Forms.PaintEventHandler(this.simulationArea_Paint);
             // 
             // btnStart
             // 
             this.btnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.Location = new System.Drawing.Point(588, 58);
+            this.btnStart.Location = new System.Drawing.Point(45, 20);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(160, 36);
+            this.btnStart.Size = new System.Drawing.Size(198, 36);
             this.btnStart.TabIndex = 2;
             this.btnStart.Text = "Simulation starten";
             this.btnStart.UseVisualStyleBackColor = false;
@@ -105,18 +111,18 @@
             this.loadSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.loadSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadSettings.ForeColor = System.Drawing.Color.White;
-            this.loadSettings.Location = new System.Drawing.Point(588, 114);
+            this.loadSettings.Location = new System.Drawing.Point(45, 76);
             this.loadSettings.Name = "loadSettings";
-            this.loadSettings.Size = new System.Drawing.Size(160, 36);
+            this.loadSettings.Size = new System.Drawing.Size(198, 36);
             this.loadSettings.TabIndex = 3;
-            this.loadSettings.Text = "Einstellungen laden";
+            this.loadSettings.Text = "Einstellungen übernehmen";
             this.loadSettings.UseVisualStyleBackColor = false;
             this.loadSettings.Click += new System.EventHandler(this.loadSettings_Click);
             // 
             // labelWidth
             // 
             this.labelWidth.AutoSize = true;
-            this.labelWidth.Location = new System.Drawing.Point(568, 176);
+            this.labelWidth.Location = new System.Drawing.Point(42, 138);
             this.labelWidth.Name = "labelWidth";
             this.labelWidth.Size = new System.Drawing.Size(49, 17);
             this.labelWidth.TabIndex = 4;
@@ -125,7 +131,7 @@
             // labelHeight
             // 
             this.labelHeight.AutoSize = true;
-            this.labelHeight.Location = new System.Drawing.Point(568, 202);
+            this.labelHeight.Location = new System.Drawing.Point(42, 164);
             this.labelHeight.Name = "labelHeight";
             this.labelHeight.Size = new System.Drawing.Size(46, 17);
             this.labelHeight.TabIndex = 5;
@@ -134,7 +140,7 @@
             // labelAnts
             // 
             this.labelAnts.AutoSize = true;
-            this.labelAnts.Location = new System.Drawing.Point(568, 254);
+            this.labelAnts.Location = new System.Drawing.Point(42, 216);
             this.labelAnts.Name = "labelAnts";
             this.labelAnts.Size = new System.Drawing.Size(66, 17);
             this.labelAnts.TabIndex = 7;
@@ -143,7 +149,7 @@
             // labelWalls
             // 
             this.labelWalls.AutoSize = true;
-            this.labelWalls.Location = new System.Drawing.Point(568, 228);
+            this.labelWalls.Location = new System.Drawing.Point(42, 190);
             this.labelWalls.Name = "labelWalls";
             this.labelWalls.Size = new System.Drawing.Size(60, 17);
             this.labelWalls.TabIndex = 6;
@@ -152,7 +158,7 @@
             // settingsWidth
             // 
             this.settingsWidth.AutoSize = true;
-            this.settingsWidth.Location = new System.Drawing.Point(646, 176);
+            this.settingsWidth.Location = new System.Drawing.Point(120, 138);
             this.settingsWidth.Name = "settingsWidth";
             this.settingsWidth.Size = new System.Drawing.Size(16, 17);
             this.settingsWidth.TabIndex = 8;
@@ -161,7 +167,7 @@
             // settingsAnts
             // 
             this.settingsAnts.AutoSize = true;
-            this.settingsAnts.Location = new System.Drawing.Point(646, 254);
+            this.settingsAnts.Location = new System.Drawing.Point(120, 216);
             this.settingsAnts.Name = "settingsAnts";
             this.settingsAnts.Size = new System.Drawing.Size(16, 17);
             this.settingsAnts.TabIndex = 9;
@@ -170,7 +176,7 @@
             // settingsWalls
             // 
             this.settingsWalls.AutoSize = true;
-            this.settingsWalls.Location = new System.Drawing.Point(646, 228);
+            this.settingsWalls.Location = new System.Drawing.Point(120, 190);
             this.settingsWalls.Name = "settingsWalls";
             this.settingsWalls.Size = new System.Drawing.Size(16, 17);
             this.settingsWalls.TabIndex = 10;
@@ -179,11 +185,28 @@
             // settingsHeight
             // 
             this.settingsHeight.AutoSize = true;
-            this.settingsHeight.Location = new System.Drawing.Point(646, 202);
+            this.settingsHeight.Location = new System.Drawing.Point(120, 164);
             this.settingsHeight.Name = "settingsHeight";
             this.settingsHeight.Size = new System.Drawing.Size(16, 17);
             this.settingsHeight.TabIndex = 11;
             this.settingsHeight.Text = "0";
+            // 
+            // sidebar
+            // 
+            this.sidebar.Controls.Add(this.btnStart);
+            this.sidebar.Controls.Add(this.settingsHeight);
+            this.sidebar.Controls.Add(this.loadSettings);
+            this.sidebar.Controls.Add(this.settingsWalls);
+            this.sidebar.Controls.Add(this.labelWidth);
+            this.sidebar.Controls.Add(this.settingsAnts);
+            this.sidebar.Controls.Add(this.labelHeight);
+            this.sidebar.Controls.Add(this.settingsWidth);
+            this.sidebar.Controls.Add(this.labelWalls);
+            this.sidebar.Controls.Add(this.labelAnts);
+            this.sidebar.Location = new System.Drawing.Point(535, 42);
+            this.sidebar.Name = "sidebar";
+            this.sidebar.Size = new System.Drawing.Size(274, 252);
+            this.sidebar.TabIndex = 12;
             // 
             // main
             // 
@@ -191,16 +214,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(836, 557);
-            this.Controls.Add(this.settingsHeight);
-            this.Controls.Add(this.settingsWalls);
-            this.Controls.Add(this.settingsAnts);
-            this.Controls.Add(this.settingsWidth);
-            this.Controls.Add(this.labelAnts);
-            this.Controls.Add(this.labelWalls);
-            this.Controls.Add(this.labelHeight);
-            this.Controls.Add(this.labelWidth);
-            this.Controls.Add(this.loadSettings);
-            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.sidebar);
             this.Controls.Add(this.simulationArea);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
@@ -209,6 +223,8 @@
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).EndInit();
+            this.sidebar.ResumeLayout(false);
+            this.sidebar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,6 +247,8 @@
         private System.Windows.Forms.Label settingsAnts;
         private System.Windows.Forms.Label settingsWalls;
         private System.Windows.Forms.Label settingsHeight;
+        private System.Windows.Forms.Panel sidebar;
+        private System.Windows.Forms.Timer timer;
     }
 }
 

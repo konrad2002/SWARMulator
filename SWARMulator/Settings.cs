@@ -8,10 +8,11 @@ namespace SWARMulator
 {
     class Settings
     {
-        public static int Width { get; private set; }
-        public static int Height { get; private set; }
-        public static int Walls { get; private set; }
-        public static int Ants { get; private set; }
+        public static int Width { get; set; }
+        public static int Height { get; set; }
+        public static int Walls { get; set; }
+        public static int Ants { get; set; }
+        public static int Size { get; set; }
 
         public Settings()
         {
@@ -19,6 +20,7 @@ namespace SWARMulator
             Height = 20;
             Walls = 0;
             Ants = 1;
+            Size = 30;
         }
     }
 }
