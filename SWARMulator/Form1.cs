@@ -42,6 +42,31 @@ namespace SWARMulator
             Settings.Base.X = random.Next(1, Settings.Width - 1);
             Settings.Base.Y = random.Next(1, Settings.Height - 1);
 
+            GenFood:
+            bool error = false;
+            int fx = 0;
+            int fy = 0;
+            fx = random.Next(1, Settings.Width - 1);
+            fy = random.Next(1, Settings.Height - 1);
+            if (fx > (Settings.Base.X - 4) && fx < (Settings.Base.X + 4))
+            {
+                error = true;
+            }
+
+            if (fy > (Settings.Base.Y - 4) && fy < (Settings.Base.Y + 4))
+            {
+                error = true;
+            }
+
+            if (error)
+            {
+                goto GenFood;
+            } else
+            {
+                Settings.Food.X = fx;
+                Settings.Food.Y = fy;
+            }
+
             Ant.NumOfAnts = 0;
             Ant.AntList = new int[Settings.Ants, 4];
 
@@ -98,64 +123,29 @@ namespace SWARMulator
             {
                 g.DrawLine(p, x * cellSize, 0, x * cellSize, cells * cellSize);
             }
-
-            cells = 3;
-            int i = 4;
-            cellSize = Settings.Size;
-            p = new Pen(Color.Black, 3);
-            int x1;
-            int x2;
-            int y1;
-            int y2;
-
-            ////waagerecht
-            //for (int y = Settings.Base.Y; y < (i + Settings.Base.Y); ++y)
-            //{
-            //    //set koords
-            //    x1 = Settings.Base.X;
-            //    x2 = Settings.Base.X + cells;
-            //    y1 = y;
-            //    y2 = y;
-            //    //multiply with field size
-            //    x1 = x1 * cellSize;
-            //    x2 = x2 * cellSize;
-            //    y1 = y1 * cellSize;
-            //    y2 = y2 * cellSize;
-            //    //remove one size
-            //    x1 = x1 - cellSize;
-            //    x2 = x2 - cellSize;
-            //    y1 = y1 - cellSize;
-            //    y2 = y2 - cellSize;
-
-            //    g.DrawLine(p, x1, y1, x2, y2);
-            //}
             
-            ////senkrecht
-            //for (int x = Settings.Base.X; x < (i + Settings.Base.X); ++x)
-            //{
-            //    //set koords
-            //    x1 = x;
-            //    x2 = x;
-            //    y1 = Settings.Base.Y;
-            //    y2 = Settings.Base.Y + cells;
-            //    //multiply with field size
-            //    x1 = x1 * cellSize;
-            //    x2 = x2 * cellSize;
-            //    y1 = y1 * cellSize;
-            //    y2 = y2 * cellSize;
-            //    //remove one size
-            //    x1 = x1 - cellSize;
-            //    x2 = x2 - cellSize;
-            //    y1 = y1 - cellSize;
-            //    y2 = y2 - cellSize;
+            p = new Pen(Color.Black, 5);
 
-            //    g.DrawLine(p, x1, y1, x2, y2);
-            //}
-            Color c = Color.FromArgb(50, 0, 0, 0);
+            // Draw Base
+            Color c = Color.FromArgb(255, 255, 195, 0);
             SolidBrush sb = new SolidBrush(c);
 
             e.Graphics.FillRectangle(sb, (Settings.Base.X * 30) - 30, (Settings.Base.Y * 30) - 30, 90, 90);
             e.Graphics.DrawRectangle(p, (Settings.Base.X * 30) - 30, (Settings.Base.Y * 30) - 30, 90, 90);
+            e.Graphics.FillEllipse(Brushes.White, (Settings.Base.X * 30) - 15, (Settings.Base.Y * 30) - 15, 60, 60);
+            g.DrawLine(p, (Settings.Base.X * 30), (Settings.Base.Y * 30) + 20, (Settings.Base.X * 30) + 16, (Settings.Base.Y * 30) + 5);
+            g.DrawLine(p, (Settings.Base.X * 30) + 30, (Settings.Base.Y * 30) + 20, (Settings.Base.X * 30) + 14, (Settings.Base.Y * 30) + 5);
+
+            // Draw Food
+            c = Color.FromArgb(255, 127, 255, 0);
+            sb = new SolidBrush(c);
+
+            e.Graphics.FillRectangle(sb, (Settings.Food.X * 30) - 30, (Settings.Food.Y * 30) - 30, 90, 90);
+            e.Graphics.DrawRectangle(p, (Settings.Food.X * 30) - 30, (Settings.Food.Y * 30) - 30, 90, 90);
+            e.Graphics.FillEllipse(Brushes.White, (Settings.Food.X * 30) - 15, (Settings.Food.Y * 30) - 15, 60, 60);
+            g.DrawLine(p, (Settings.Food.X * 30), (Settings.Food.Y * 30), (Settings.Food.X * 30), (Settings.Food.Y * 30) + 30);
+            g.DrawLine(p, (Settings.Food.X * 30) + 15, (Settings.Food.Y * 30), (Settings.Food.X * 30) + 15, (Settings.Food.Y * 30) + 30);
+            g.DrawLine(p, (Settings.Food.X * 30) + 30, (Settings.Food.Y * 30), (Settings.Food.X * 30) + 30, (Settings.Food.Y * 30) + 30);
 
             int i1 = Ant.NumOfAnts;
             int n = 0;
@@ -169,6 +159,16 @@ namespace SWARMulator
                 ay = Ant.AntList[n, 2];
                 ad = Ant.AntList[n, 3];
                 Console.WriteLine(ad);
+
+                // if at food
+                if (ax >= Settings.Food.X && ax < Settings.Food.X + 3 && ay >= Settings.Food.Y && ay < Settings.Food.Y + 3)
+                {
+                    Ant.AntList[n, 1] = 0;
+                    Ant.AntList[n, 2] = 0;
+                    Ant.AntList[n, 3] = 0;
+                    ax = ay = 0;
+                }
+
                 n = Ant.AntList[n, 0];
 
                 int items = AntListBox.Items.Count;
@@ -178,12 +178,18 @@ namespace SWARMulator
                     AntListBox.Items.Add(n.ToString() + ": ( " + ax.ToString() + " | " + ay.ToString() + " )");
                 } else
                 {
-                    AntListBox.Items[n-1] = (n.ToString() + ": ( " + ax.ToString() + " | " + ay.ToString() + " )");
+                    if (ax != 0 && ay != 0)
+                    {
+                        AntListBox.Items[n - 1] = (n.ToString() + ": ( " + ax.ToString() + " | " + ay.ToString() + " )");
+                    } else
+                    {
+                        AntListBox.Items[n - 1] = (n.ToString() + ": am Ziel!");
+                    }
                 }
 
                 e.Graphics.FillEllipse(Brushes.Black, (ax * 30) - 25, (ay * 30) - 25, 20, 20);
 
-                if (Settings.Running)
+                if (Settings.Running && ax != 0 && ay != 0)
                 {
                     //choose new direction
                     int NumOfDirections = 0;
