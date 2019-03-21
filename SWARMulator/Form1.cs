@@ -24,7 +24,7 @@ namespace SWARMulator
             Settings.Width = 20;
             Settings.Height = 20;
             Settings.Walls = 0;
-            Settings.Ants = 1;
+            Settings.Ants = 5;
             Settings.Size = 30;
             Settings.Base.X = 1;
             Settings.Base.Y = 1;
@@ -33,8 +33,10 @@ namespace SWARMulator
             Settings.Running = false;
             
             Ant.NumOfAnts = 0;
-            Ant.AntList = new int[Settings.Ants,3];
+            Ant.AntList = new int[Settings.Ants,4];
         }
+
+        static Random random = new Random();
 
         private void einstellungenToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -126,11 +128,14 @@ namespace SWARMulator
             int n = 0;
             int ax;
             int ay;
+            int ad;
 
             while (i1 > n)
             {
                 ax = Ant.AntList[n, 1];
                 ay = Ant.AntList[n, 2];
+                ad = Ant.AntList[n, 3];
+                Console.WriteLine(ad);
                 n = Ant.AntList[n, 0];
 
                 AntListBox.Items.Add(n.ToString() + ": ( " + ax.ToString() + " | " + ay.ToString() + " )");
@@ -145,22 +150,22 @@ namespace SWARMulator
                     bool D = false;
                     bool U = false;
 
-                    if (ax < Settings.Width)
+                    if (ax < Settings.Width && ad != 2)
                     {
                         NumOfDirections++;
                         R = true;
                     }
-                    if (ax > 1)
+                    if (ax > 1 && ad != 1)
                     {
                         NumOfDirections++;
                         L = true;
                     }
-                    if (ay < Settings.Height)
+                    if (ay < Settings.Height && ad != 4)
                     {
                         NumOfDirections++;
                         D = true;
                     }
-                    if (ay > 1)
+                    if (ay > 1 && ad != 3)
                     {
                         NumOfDirections++;
                         U = true;
@@ -176,7 +181,7 @@ namespace SWARMulator
                     string[] directionsList = directions.ToArray();
 
 
-                    Random random = new Random();
+                    
                     int rnd = random.Next(0, NumOfDirections);
 
                     string direc = directionsList[rnd];
@@ -184,18 +189,22 @@ namespace SWARMulator
                     if (direc == "R")
                     {
                         Ant.AntList[n - 1, 1]++;
+                        Ant.AntList[n - 1, 3] = 1;
                     }
                     if (direc == "L")
                     {
                         Ant.AntList[n - 1, 1]--;
+                        Ant.AntList[n - 1, 3] = 2;
                     }
                     if (direc == "D")
                     {
                         Ant.AntList[n - 1, 2]++;
+                        Ant.AntList[n - 1, 3] = 3;
                     }
                     if (direc == "U")
                     {
                         Ant.AntList[n - 1, 2]--;
+                        Ant.AntList[n - 1, 3] = 4;
                     }
                 }
             }
@@ -203,12 +212,11 @@ namespace SWARMulator
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            Random random = new Random();
             Settings.Base.X = random.Next(1, Settings.Width - 1);
             Settings.Base.Y = random.Next(1, Settings.Height - 1);
 
             Ant.NumOfAnts = 0;
-            Ant.AntList = new int[Settings.Ants,3];
+            Ant.AntList = new int[Settings.Ants,4];
 
             settingsWidth.Text = Settings.Width.ToString();
             settingsHeight.Text = Settings.Height.ToString();
@@ -230,8 +238,11 @@ namespace SWARMulator
         private void SpawnAnt_Click(object sender, EventArgs e)
         {
             Ant A1 = new Ant();
-            string str = A1.Spawn();
-            Console.WriteLine(str);
+            int spawn = A1.Spawn();
+            if (spawn == 1)
+            {
+                MessageBox.Show("Die maximale Anzahl an Ameisen wurde erreicht!", "Maximale Ameisen-Anzahl", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -239,7 +250,7 @@ namespace SWARMulator
             simulationArea.Refresh();
         }
 
-        private void btnStart_Click(object sender, EventArgs e)
+        public void btnStart_Click(object sender, EventArgs e)
         {
             if (Settings.Running)
             {
@@ -250,6 +261,11 @@ namespace SWARMulator
                 btnStart.Text = "Simulation stoppen";
                 Settings.Running = true;
             }
+        }
+
+        private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -54,7 +54,7 @@ namespace SWARMulator
             Settings.Walls = trackBarWalls.Value;
             Settings.Ants = trackBarAnts.Value;
             Ant.NumOfAnts = 0;
-            Ant.AntList = new int[Settings.Ants,3];
+            Ant.AntList = new int[Settings.Ants,4];
             this.Close();
         }
 
