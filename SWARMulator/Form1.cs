@@ -34,6 +34,35 @@ namespace SWARMulator
             
             Ant.NumOfAnts = 0;
             Ant.AntList = new int[Settings.Ants,4];
+
+        }
+
+        public void GenerateMap()
+        {
+            Settings.Base.X = random.Next(1, Settings.Width - 1);
+            Settings.Base.Y = random.Next(1, Settings.Height - 1);
+
+            Ant.NumOfAnts = 0;
+            Ant.AntList = new int[Settings.Ants, 4];
+
+            settingsWidth.Text = Settings.Width.ToString();
+            settingsHeight.Text = Settings.Height.ToString();
+            settingsWalls.Text = Settings.Walls.ToString();
+            settingsAnts.Text = "0 / " + Settings.Ants.ToString();
+            settingsBase.Text = "( " + Settings.Base.X.ToString() + " | " + Settings.Base.Y.ToString() + " )";
+            settingsFood.Text = "( " + Settings.Food.X.ToString() + " | " + Settings.Food.Y.ToString() + " )";
+
+            simulationArea.Width = Settings.Width * Settings.Size + 1;
+            simulationArea.Height = Settings.Height * Settings.Size + 1;
+
+            sidebar.Left = Settings.Width * Settings.Size + 20;
+
+            AntListBox.Height = Settings.Ants * 15;
+            sidebar.Height = Settings.Ants * 15 + 450;
+
+            this.Width = Settings.Width * Settings.Size + 300;
+            this.Height = Settings.Height * Settings.Size + 85;
+            AntListBox.Items.Clear();
         }
 
         static Random random = new Random();
@@ -79,51 +108,55 @@ namespace SWARMulator
             int y1;
             int y2;
 
-            //waagerecht
-            for (int y = Settings.Base.Y; y < (i + Settings.Base.Y); ++y)
-            {
-                //set koords
-                x1 = Settings.Base.X;
-                x2 = Settings.Base.X + cells;
-                y1 = y;
-                y2 = y;
-                //multiply with field size
-                x1 = x1 * cellSize;
-                x2 = x2 * cellSize;
-                y1 = y1 * cellSize;
-                y2 = y2 * cellSize;
-                //remove one size
-                x1 = x1 - cellSize;
-                x2 = x2 - cellSize;
-                y1 = y1 - cellSize;
-                y2 = y2 - cellSize;
+            ////waagerecht
+            //for (int y = Settings.Base.Y; y < (i + Settings.Base.Y); ++y)
+            //{
+            //    //set koords
+            //    x1 = Settings.Base.X;
+            //    x2 = Settings.Base.X + cells;
+            //    y1 = y;
+            //    y2 = y;
+            //    //multiply with field size
+            //    x1 = x1 * cellSize;
+            //    x2 = x2 * cellSize;
+            //    y1 = y1 * cellSize;
+            //    y2 = y2 * cellSize;
+            //    //remove one size
+            //    x1 = x1 - cellSize;
+            //    x2 = x2 - cellSize;
+            //    y1 = y1 - cellSize;
+            //    y2 = y2 - cellSize;
 
-                g.DrawLine(p, x1, y1, x2, y2);
-            }
+            //    g.DrawLine(p, x1, y1, x2, y2);
+            //}
             
-            //senkrecht
-            for (int x = Settings.Base.X; x < (i + Settings.Base.X); ++x)
-            {
-                //set koords
-                x1 = x;
-                x2 = x;
-                y1 = Settings.Base.Y;
-                y2 = Settings.Base.Y + cells;
-                //multiply with field size
-                x1 = x1 * cellSize;
-                x2 = x2 * cellSize;
-                y1 = y1 * cellSize;
-                y2 = y2 * cellSize;
-                //remove one size
-                x1 = x1 - cellSize;
-                x2 = x2 - cellSize;
-                y1 = y1 - cellSize;
-                y2 = y2 - cellSize;
+            ////senkrecht
+            //for (int x = Settings.Base.X; x < (i + Settings.Base.X); ++x)
+            //{
+            //    //set koords
+            //    x1 = x;
+            //    x2 = x;
+            //    y1 = Settings.Base.Y;
+            //    y2 = Settings.Base.Y + cells;
+            //    //multiply with field size
+            //    x1 = x1 * cellSize;
+            //    x2 = x2 * cellSize;
+            //    y1 = y1 * cellSize;
+            //    y2 = y2 * cellSize;
+            //    //remove one size
+            //    x1 = x1 - cellSize;
+            //    x2 = x2 - cellSize;
+            //    y1 = y1 - cellSize;
+            //    y2 = y2 - cellSize;
 
-                g.DrawLine(p, x1, y1, x2, y2);
-            }
+            //    g.DrawLine(p, x1, y1, x2, y2);
+            //}
+            Color c = Color.FromArgb(50, 0, 0, 0);
+            SolidBrush sb = new SolidBrush(c);
 
-            AntListBox.Items.Clear();
+            e.Graphics.FillRectangle(sb, (Settings.Base.X * 30) - 30, (Settings.Base.Y * 30) - 30, 90, 90);
+            e.Graphics.DrawRectangle(p, (Settings.Base.X * 30) - 30, (Settings.Base.Y * 30) - 30, 90, 90);
+
             int i1 = Ant.NumOfAnts;
             int n = 0;
             int ax;
@@ -138,7 +171,16 @@ namespace SWARMulator
                 Console.WriteLine(ad);
                 n = Ant.AntList[n, 0];
 
-                AntListBox.Items.Add(n.ToString() + ": ( " + ax.ToString() + " | " + ay.ToString() + " )");
+                int items = AntListBox.Items.Count;
+
+                if (items < n)
+                {
+                    AntListBox.Items.Add(n.ToString() + ": ( " + ax.ToString() + " | " + ay.ToString() + " )");
+                } else
+                {
+                    AntListBox.Items[n-1] = (n.ToString() + ": ( " + ax.ToString() + " | " + ay.ToString() + " )");
+                }
+
                 e.Graphics.FillEllipse(Brushes.Black, (ax * 30) - 25, (ay * 30) - 25, 20, 20);
 
                 if (Settings.Running)
@@ -212,27 +254,7 @@ namespace SWARMulator
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            Settings.Base.X = random.Next(1, Settings.Width - 1);
-            Settings.Base.Y = random.Next(1, Settings.Height - 1);
-
-            Ant.NumOfAnts = 0;
-            Ant.AntList = new int[Settings.Ants,4];
-
-            settingsWidth.Text = Settings.Width.ToString();
-            settingsHeight.Text = Settings.Height.ToString();
-            settingsWalls.Text = Settings.Walls.ToString();
-            settingsAnts.Text = Settings.Ants.ToString();
-            settingsBase.Text = "( " + Settings.Base.X.ToString() + " | " + Settings.Base.Y.ToString() + " )";
-            settingsFood.Text = "( " + Settings.Food.X.ToString() + " | " + Settings.Food.Y.ToString() + " )";
-
-            simulationArea.Width = Settings.Width * Settings.Size + 1;
-            simulationArea.Height = Settings.Height * Settings.Size + 1;
-
-            sidebar.Left = Settings.Width * Settings.Size + 20;
-
-            this.Width = Settings.Width * Settings.Size + 300;
-            this.Height = Settings.Height * Settings.Size + 85;
-
+            GenerateMap();
         }
 
         private void SpawnAnt_Click(object sender, EventArgs e)
@@ -248,6 +270,7 @@ namespace SWARMulator
         private void timer_Tick(object sender, EventArgs e)
         {
             simulationArea.Refresh();
+            settingsAnts.Text = Ant.NumOfAnts.ToString() + " / " + Settings.Ants.ToString();
         }
 
         public void btnStart_Click(object sender, EventArgs e)
@@ -266,6 +289,24 @@ namespace SWARMulator
         private void beendenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void main_Load(object sender, EventArgs e)
+        {
+            GenerateMap();
+        }
+
+        private void SpawnAllAnts_Click(object sender, EventArgs e)
+        {
+            int i = Ant.NumOfAnts;
+            int j = Settings.Ants;
+
+            while (i < j)
+            {
+                Ant A1 = new Ant();
+                A1.Spawn();
+                i++;
+            }
         }
     }
 }
