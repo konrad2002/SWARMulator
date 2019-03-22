@@ -35,7 +35,12 @@ namespace SWARMulator
             Ant.NumOfAnts = 0;
             Ant.AntList = new int[Settings.Ants,4];
 
+            FieldUses = new int[100000, 2];
+            Fields = 0;
         }
+
+        public static int[,] FieldUses { get; set; }
+        public static int Fields { get; set; }
 
         public void GenerateMap()
         {
@@ -147,6 +152,24 @@ namespace SWARMulator
             g.DrawLine(p, (Settings.Food.X * 30) + 15, (Settings.Food.Y * 30), (Settings.Food.X * 30) + 15, (Settings.Food.Y * 30) + 30);
             g.DrawLine(p, (Settings.Food.X * 30) + 30, (Settings.Food.Y * 30), (Settings.Food.X * 30) + 30, (Settings.Food.Y * 30) + 30);
 
+            // mark fields
+            c = Color.FromArgb(20, 244, 66, 66);
+            sb = new SolidBrush(c);
+            int j = 0;
+            int fx = 0;
+            int fy = 0;
+
+            if (Settings.Running)
+            {
+                while (j < Fields)
+                {
+                    fx = FieldUses[j, 0];
+                    fy = FieldUses[j, 1];
+                    e.Graphics.FillRectangle(sb, (fx * 30) - 30, (fy * 30) - 30, 30, 30);
+                    j++;
+                }
+            }
+
             int i1 = Ant.NumOfAnts;
             int n = 0;
             int ax;
@@ -159,6 +182,15 @@ namespace SWARMulator
                 ay = Ant.AntList[n, 2];
                 ad = Ant.AntList[n, 3];
                 Console.WriteLine(ad);
+
+                FieldUses[Fields, 0] = ax;
+                FieldUses[Fields, 1] = ay;
+                Fields++;
+
+                // Mark field
+
+                e.Graphics.FillRectangle(sb, (ax * 30) - 30, (ay * 30) - 30, 30, 30);
+
 
                 // if at food
                 if (ax >= Settings.Food.X && ax < Settings.Food.X + 3 && ay >= Settings.Food.Y && ay < Settings.Food.Y + 3)

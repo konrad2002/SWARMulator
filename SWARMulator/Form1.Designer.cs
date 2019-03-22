@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulationArea = new System.Windows.Forms.PictureBox();
@@ -45,6 +46,7 @@
             this.settingsWalls = new System.Windows.Forms.Label();
             this.settingsHeight = new System.Windows.Forms.Label();
             this.sidebar = new System.Windows.Forms.Panel();
+            this.SpawnAllAnts = new System.Windows.Forms.Button();
             this.AntListBox = new System.Windows.Forms.ListBox();
             this.SpawnAnt = new System.Windows.Forms.Button();
             this.settingsBase = new System.Windows.Forms.Label();
@@ -52,8 +54,6 @@
             this.labelBase = new System.Windows.Forms.Label();
             this.labelFood = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SpawnAllAnts = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -68,7 +68,7 @@
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.mainMenu.Size = new System.Drawing.Size(836, 28);
+            this.mainMenu.Size = new System.Drawing.Size(1020, 28);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -79,6 +79,13 @@
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
             this.dateiToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.dateiToolStripMenuItem.Text = "Datei";
+            // 
+            // beendenToolStripMenuItem
+            // 
+            this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.beendenToolStripMenuItem.Text = "Beenden";
+            this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
             // bearbeitenToolStripMenuItem
             // 
@@ -228,8 +235,22 @@
             this.sidebar.Location = new System.Drawing.Point(535, 42);
             this.sidebar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sidebar.Name = "sidebar";
-            this.sidebar.Size = new System.Drawing.Size(275, 561);
+            this.sidebar.Size = new System.Drawing.Size(414, 561);
             this.sidebar.TabIndex = 12;
+            // 
+            // SpawnAllAnts
+            // 
+            this.SpawnAllAnts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SpawnAllAnts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SpawnAllAnts.ForeColor = System.Drawing.Color.White;
+            this.SpawnAllAnts.Location = new System.Drawing.Point(44, 287);
+            this.SpawnAllAnts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SpawnAllAnts.Name = "SpawnAllAnts";
+            this.SpawnAllAnts.Size = new System.Drawing.Size(197, 36);
+            this.SpawnAllAnts.TabIndex = 19;
+            this.SpawnAllAnts.Text = "Alle Ameisen erzeugen";
+            this.SpawnAllAnts.UseVisualStyleBackColor = false;
+            this.SpawnAllAnts.Click += new System.EventHandler(this.SpawnAllAnts_Click);
             // 
             // AntListBox
             // 
@@ -237,10 +258,10 @@
             this.AntListBox.ItemHeight = 16;
             this.AntListBox.Items.AddRange(new object[] {
             "1 ( 1 | 1 )"});
-            this.AntListBox.Location = new System.Drawing.Point(45, 369);
+            this.AntListBox.Location = new System.Drawing.Point(249, 22);
             this.AntListBox.Margin = new System.Windows.Forms.Padding(4);
             this.AntListBox.Name = "AntListBox";
-            this.AntListBox.Size = new System.Drawing.Size(196, 180);
+            this.AntListBox.Size = new System.Drawing.Size(126, 340);
             this.AntListBox.TabIndex = 18;
             // 
             // SpawnAnt
@@ -298,33 +319,12 @@
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // beendenToolStripMenuItem
-            // 
-            this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.beendenToolStripMenuItem.Text = "Beenden";
-            this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
-            // 
-            // SpawnAllAnts
-            // 
-            this.SpawnAllAnts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SpawnAllAnts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SpawnAllAnts.ForeColor = System.Drawing.Color.White;
-            this.SpawnAllAnts.Location = new System.Drawing.Point(44, 287);
-            this.SpawnAllAnts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SpawnAllAnts.Name = "SpawnAllAnts";
-            this.SpawnAllAnts.Size = new System.Drawing.Size(197, 36);
-            this.SpawnAllAnts.TabIndex = 19;
-            this.SpawnAllAnts.Text = "Alle Ameisen erzeugen";
-            this.SpawnAllAnts.UseVisualStyleBackColor = false;
-            this.SpawnAllAnts.Click += new System.EventHandler(this.SpawnAllAnts_Click);
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(836, 617);
+            this.ClientSize = new System.Drawing.Size(1020, 617);
             this.Controls.Add(this.sidebar);
             this.Controls.Add(this.simulationArea);
             this.Controls.Add(this.mainMenu);
