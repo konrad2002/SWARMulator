@@ -14,6 +14,7 @@ namespace SWARMulator
         public static int Ants { get; set; }
         public static int Size { get; set; }
         public static bool Running { get; set; }
+        public static int Time { get; set; }
 
         public class Base
         {

@@ -10,6 +10,8 @@ namespace SWARMulator
     {
         public static int[,] AntList { get; set; }
         public static int NumOfAnts { get; set; }
+        public static int NumOfFinishers { get; set; }
+        public static int NumOfLivings { get; set; }
 
         static Random random = new Random();
 

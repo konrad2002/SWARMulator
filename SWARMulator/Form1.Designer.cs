@@ -54,6 +54,8 @@
             this.labelBase = new System.Windows.Forms.Label();
             this.labelFood = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.clock = new System.Windows.Forms.Timer(this.components);
+            this.Time = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -215,6 +217,7 @@
             // 
             // sidebar
             // 
+            this.sidebar.Controls.Add(this.Time);
             this.sidebar.Controls.Add(this.SpawnAllAnts);
             this.sidebar.Controls.Add(this.AntListBox);
             this.sidebar.Controls.Add(this.SpawnAnt);
@@ -319,6 +322,21 @@
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // clock
+            // 
+            this.clock.Enabled = true;
+            this.clock.Interval = 1000;
+            this.clock.Tick += new System.EventHandler(this.clock_Tick);
+            // 
+            // Time
+            // 
+            this.Time.AutoSize = true;
+            this.Time.Location = new System.Drawing.Point(41, 1);
+            this.Time.Name = "Time";
+            this.Time.Size = new System.Drawing.Size(76, 17);
+            this.Time.TabIndex = 20;
+            this.Time.Text = "Zeit: 00:00";
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -370,6 +388,8 @@
         private System.Windows.Forms.ListBox AntListBox;
         private System.Windows.Forms.ToolStripMenuItem beendenToolStripMenuItem;
         private System.Windows.Forms.Button SpawnAllAnts;
+        private System.Windows.Forms.Timer clock;
+        private System.Windows.Forms.Label Time;
     }
 }
 

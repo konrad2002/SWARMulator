@@ -33,14 +33,18 @@ namespace SWARMulator
             Settings.Running = false;
             
             Ant.NumOfAnts = 0;
+            Ant.NumOfFinishers = 0;
             Ant.AntList = new int[Settings.Ants,4];
 
-            FieldUses = new int[100000, 2];
+            FieldUses = new int[100000, 3];
             Fields = 0;
+            Secounds = 0;
         }
 
         public static int[,] FieldUses { get; set; }
         public static int Fields { get; set; }
+        public static int Secounds { get; set; }
+        public static int Minutes { get; set; }
 
         public void GenerateMap()
         {
@@ -73,6 +77,7 @@ namespace SWARMulator
             }
 
             Ant.NumOfAnts = 0;
+            Ant.NumOfFinishers = 0;
             Ant.AntList = new int[Settings.Ants, 4];
 
             settingsWidth.Text = Settings.Width.ToString();
@@ -93,6 +98,12 @@ namespace SWARMulator
             this.Width = Settings.Width * Settings.Size + 300;
             this.Height = Settings.Height * Settings.Size + 85;
             AntListBox.Items.Clear();
+
+            FieldUses = new int[100000, 3];
+            Secounds = 0;
+            Minutes = 0;
+            Settings.Time = 0;
+            Settings.Running = false;
         }
 
         static Random random = new Random();
@@ -103,11 +114,13 @@ namespace SWARMulator
             form.Show();
         }
 
+        // executed from timer
         private void simulationArea_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             Pen p = new Pen(Color.Black);
 
+            // draw grid
             int cells;
             if (Settings.Width > Settings.Height)
             {
@@ -131,30 +144,9 @@ namespace SWARMulator
             
             p = new Pen(Color.Black, 5);
 
-            // Draw Base
-            Color c = Color.FromArgb(255, 255, 195, 0);
-            SolidBrush sb = new SolidBrush(c);
-
-            e.Graphics.FillRectangle(sb, (Settings.Base.X * 30) - 30, (Settings.Base.Y * 30) - 30, 90, 90);
-            e.Graphics.DrawRectangle(p, (Settings.Base.X * 30) - 30, (Settings.Base.Y * 30) - 30, 90, 90);
-            e.Graphics.FillEllipse(Brushes.White, (Settings.Base.X * 30) - 15, (Settings.Base.Y * 30) - 15, 60, 60);
-            g.DrawLine(p, (Settings.Base.X * 30), (Settings.Base.Y * 30) + 20, (Settings.Base.X * 30) + 16, (Settings.Base.Y * 30) + 5);
-            g.DrawLine(p, (Settings.Base.X * 30) + 30, (Settings.Base.Y * 30) + 20, (Settings.Base.X * 30) + 14, (Settings.Base.Y * 30) + 5);
-
-            // Draw Food
-            c = Color.FromArgb(255, 127, 255, 0);
-            sb = new SolidBrush(c);
-
-            e.Graphics.FillRectangle(sb, (Settings.Food.X * 30) - 30, (Settings.Food.Y * 30) - 30, 90, 90);
-            e.Graphics.DrawRectangle(p, (Settings.Food.X * 30) - 30, (Settings.Food.Y * 30) - 30, 90, 90);
-            e.Graphics.FillEllipse(Brushes.White, (Settings.Food.X * 30) - 15, (Settings.Food.Y * 30) - 15, 60, 60);
-            g.DrawLine(p, (Settings.Food.X * 30), (Settings.Food.Y * 30), (Settings.Food.X * 30), (Settings.Food.Y * 30) + 30);
-            g.DrawLine(p, (Settings.Food.X * 30) + 15, (Settings.Food.Y * 30), (Settings.Food.X * 30) + 15, (Settings.Food.Y * 30) + 30);
-            g.DrawLine(p, (Settings.Food.X * 30) + 30, (Settings.Food.Y * 30), (Settings.Food.X * 30) + 30, (Settings.Food.Y * 30) + 30);
-
             // mark fields
-            c = Color.FromArgb(20, 244, 66, 66);
-            sb = new SolidBrush(c);
+            Color c = Color.FromArgb(50, 244, 66, 66);
+            SolidBrush sb = new SolidBrush(c);
             int j = 0;
             int fx = 0;
             int fy = 0;
@@ -169,6 +161,27 @@ namespace SWARMulator
                     j++;
                 }
             }
+
+            // draw Base
+            c = Color.FromArgb(255, 255, 195, 0);
+            sb = new SolidBrush(c);
+
+            e.Graphics.FillRectangle(sb, (Settings.Base.X * 30) - 30, (Settings.Base.Y * 30) - 30, 90, 90);
+            e.Graphics.DrawRectangle(p, (Settings.Base.X * 30) - 30, (Settings.Base.Y * 30) - 30, 90, 90);
+            e.Graphics.FillEllipse(Brushes.White, (Settings.Base.X * 30) - 15, (Settings.Base.Y * 30) - 15, 60, 60);
+            g.DrawLine(p, (Settings.Base.X * 30), (Settings.Base.Y * 30) + 20, (Settings.Base.X * 30) + 16, (Settings.Base.Y * 30) + 5);
+            g.DrawLine(p, (Settings.Base.X * 30) + 30, (Settings.Base.Y * 30) + 20, (Settings.Base.X * 30) + 14, (Settings.Base.Y * 30) + 5);
+
+            // draw Food
+            c = Color.FromArgb(255, 127, 255, 0);
+            sb = new SolidBrush(c);
+
+            e.Graphics.FillRectangle(sb, (Settings.Food.X * 30) - 30, (Settings.Food.Y * 30) - 30, 90, 90);
+            e.Graphics.DrawRectangle(p, (Settings.Food.X * 30) - 30, (Settings.Food.Y * 30) - 30, 90, 90);
+            e.Graphics.FillEllipse(Brushes.White, (Settings.Food.X * 30) - 15, (Settings.Food.Y * 30) - 15, 60, 60);
+            g.DrawLine(p, (Settings.Food.X * 30), (Settings.Food.Y * 30), (Settings.Food.X * 30), (Settings.Food.Y * 30) + 30);
+            g.DrawLine(p, (Settings.Food.X * 30) + 15, (Settings.Food.Y * 30), (Settings.Food.X * 30) + 15, (Settings.Food.Y * 30) + 30);
+            g.DrawLine(p, (Settings.Food.X * 30) + 30, (Settings.Food.Y * 30), (Settings.Food.X * 30) + 30, (Settings.Food.Y * 30) + 30);
 
             int i1 = Ant.NumOfAnts;
             int n = 0;
@@ -189,6 +202,8 @@ namespace SWARMulator
 
                 // Mark field
 
+                c = Color.FromArgb(50, 244, 66, 66);
+                sb = new SolidBrush(c);
                 e.Graphics.FillRectangle(sb, (ax * 30) - 30, (ay * 30) - 30, 30, 30);
 
 
@@ -199,6 +214,7 @@ namespace SWARMulator
                     Ant.AntList[n, 2] = 0;
                     Ant.AntList[n, 3] = 0;
                     ax = ay = 0;
+                    Ant.NumOfFinishers++;
                 }
 
                 n = Ant.AntList[n, 0];
@@ -307,8 +323,19 @@ namespace SWARMulator
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            Ant.NumOfLivings = Ant.NumOfAnts - Ant.NumOfFinishers;
+            if (Ant.NumOfLivings == 0 && Ant.NumOfAnts > 0)
+            {
+                Ant.NumOfAnts = 0;
+                int points = ((Settings.Width * Settings.Height) / Settings.Time) * 100;
+                MessageBox.Show("Alle Ameisen haben das Ziel erreicht! Punktzahl: " + points.ToString(), "Alle Ameisen im Ziel", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Secounds = 0;
+                Minutes = 0;
+                Settings.Time = 0;
+                Settings.Running = false;
+            }
             simulationArea.Refresh();
-            settingsAnts.Text = Ant.NumOfAnts.ToString() + " / " + Settings.Ants.ToString();
+            settingsAnts.Text = Ant.NumOfLivings.ToString() + " / " + Settings.Ants.ToString();
         }
 
         public void btnStart_Click(object sender, EventArgs e)
@@ -344,6 +371,42 @@ namespace SWARMulator
                 Ant A1 = new Ant();
                 A1.Spawn();
                 i++;
+            }
+        }
+
+        private void clock_Tick(object sender, EventArgs e)
+        {
+            string Display1 = "";
+            string Display2 = "";
+            if (Settings.Running)
+            {
+                Settings.Time++;
+                Secounds++;
+
+                if (Secounds >= 60)
+                {
+                    Minutes++;
+                    Secounds = 0;
+                }
+
+                if (Secounds < 10)
+                {
+                    Display1 = "0" + Secounds.ToString();
+                } else
+                {
+                    Display1 = Secounds.ToString();
+                }
+
+                if (Minutes < 10)
+                {
+                    Display2 = "0" + Minutes.ToString();
+                }
+                else
+                {
+                    Display2 = Minutes.ToString();
+                }
+
+                Time.Text = "Zeit: " + Display2 + ":" + Display1;
             }
         }
     }
