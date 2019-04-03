@@ -3,6 +3,11 @@ This project includes a software for simulating swarms in a very simple and unco
 
 ![SWARMulator](http://logilutions.de/SWARMulator/SWARMulator_3.PNG)
 
+## Shortcuts
+* Ctrl + O ==> options
+* Ctrl + G ==> generate map
+* Ctrl + A ==> spawn ants
+* Ctrl + R ==> run simulation
 
 ## Changelog
 Just please read commits and watch the following pictures... I don't like to write down this all again.... ;)
