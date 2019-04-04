@@ -22,7 +22,7 @@ namespace SWARMulator
 
             Settings.Width = 20;
             Settings.Height = 20;
-            Settings.Walls = 0;
+            Settings.Walls = 10;
             Settings.Ants = 5;
             Settings.Size = 30;
             Settings.Base.X = 1;
@@ -37,11 +37,23 @@ namespace SWARMulator
             Ant.NumOfFinishers = 0;
             Ant.AntList = new int[Settings.Ants,4];
 
-            FieldUses = new int[100000, 3];
+            FieldUses = new int[100000, 4];
             Fields = 0;
             Secounds = 0;
 
-            Walls = new int[Settings.Walls, 2];
+            Walls = new int[Settings.Walls + 1, 2];
+
+            Walls[0, 0] = 0;
+            Walls[0, 1] = 0;
+            int i = 1;
+            while (i <= Settings.Walls)
+            {
+                Walls[i, 0] = 0;
+                Walls[i, 1] = 0;
+                i++;
+            }
+
+            PlacedWalls = 0;
         }
 
         public static int[,] FieldUses { get; set; }
@@ -49,6 +61,7 @@ namespace SWARMulator
         public static int Fields { get; set; }
         public static int Secounds { get; set; }
         public static int Minutes { get; set; }
+        public static int PlacedWalls { get; set; }
 
         public void GenerateMap()
         {
@@ -103,8 +116,7 @@ namespace SWARMulator
             this.Height = Settings.Height * Settings.Size + 85;
             AntListBox.Items.Clear();
 
-            FieldUses = new int[100000, 3];
-            Walls = new int[Settings.Walls, 2];
+            FieldUses = new int[100000, 4];
             Secounds = 0;
             Minutes = 0;
             Settings.Time = 0;
@@ -114,6 +126,7 @@ namespace SWARMulator
             FieldUses[0, 0] = 0;
             FieldUses[0, 1] = 0;
             FieldUses[0, 2] = 0;
+            FieldUses[0, 3] = 0;
 
             int i = 1;
             // count x and y
@@ -125,6 +138,7 @@ namespace SWARMulator
                 FieldUses[i, 0] = cx;
                 FieldUses[i, 1] = cy;
                 FieldUses[i, 2] = 0;
+                FieldUses[i, 3] = 0;
 
                 if (cx >= Settings.Width)
                 {
@@ -137,6 +151,59 @@ namespace SWARMulator
 
                 i++;
             }
+
+            int field;
+            field = (Settings.Base.Y * Settings.Width) - (Settings.Width - Settings.Base.X);
+            FieldUses[field, 3] = 2;
+            field = (Settings.Base.Y * Settings.Width) - (Settings.Width - Settings.Base.X - 1);
+            FieldUses[field, 3] = 2;
+            field = (Settings.Base.Y * Settings.Width) - (Settings.Width - Settings.Base.X - 2);
+            FieldUses[field, 3] = 2;
+            field = ((Settings.Base.Y + 1) * Settings.Width) - (Settings.Width - Settings.Base.X);
+            FieldUses[field, 3] = 2;
+            field = ((Settings.Base.Y + 1) * Settings.Width) - (Settings.Width - Settings.Base.X - 1);
+            FieldUses[field, 3] = 2;
+            field = ((Settings.Base.Y + 1) * Settings.Width) - (Settings.Width - Settings.Base.X - 2);
+            FieldUses[field, 3] = 2;
+            field = ((Settings.Base.Y + 2) * Settings.Width) - (Settings.Width - Settings.Base.X);
+            FieldUses[field, 3] = 2;
+            field = ((Settings.Base.Y + 2) * Settings.Width) - (Settings.Width - Settings.Base.X - 1);
+            FieldUses[field, 3] = 2;
+            field = ((Settings.Base.Y + 2) * Settings.Width) - (Settings.Width - Settings.Base.X - 2);
+            FieldUses[field, 3] = 2;
+
+            field = (Settings.Food.Y * Settings.Width) - (Settings.Width - Settings.Food.X);
+            FieldUses[field, 3] = 3;
+            field = (Settings.Food.Y * Settings.Width) - (Settings.Width - Settings.Food.X - 1);
+            FieldUses[field, 3] = 3;
+            field = (Settings.Food.Y * Settings.Width) - (Settings.Width - Settings.Food.X - 2);
+            FieldUses[field, 3] = 3;
+            field = ((Settings.Food.Y + 1) * Settings.Width) - (Settings.Width - Settings.Food.X);
+            FieldUses[field, 3] = 3;
+            field = ((Settings.Food.Y + 1) * Settings.Width) - (Settings.Width - Settings.Food.X - 1);
+            FieldUses[field, 3] = 3;
+            field = ((Settings.Food.Y + 1) * Settings.Width) - (Settings.Width - Settings.Food.X - 2);
+            FieldUses[field, 3] = 3;
+            field = ((Settings.Food.Y + 2) * Settings.Width) - (Settings.Width - Settings.Food.X);
+            FieldUses[field, 3] = 3;
+            field = ((Settings.Food.Y + 2) * Settings.Width) - (Settings.Width - Settings.Food.X - 1);
+            FieldUses[field, 3] = 3;
+            field = ((Settings.Food.Y + 2) * Settings.Width) - (Settings.Width - Settings.Food.X - 2);
+            FieldUses[field, 3] = 3;
+            Walls = new int[Settings.Walls + 1, 2];
+
+            Walls[0, 0] = 0;
+            Walls[0, 1] = 0;
+            i = 1;
+            while (i <= Settings.Walls)
+            {
+                Console.WriteLine(i);
+                Walls[i, 0] = 0;
+                Walls[i, 1] = 0;
+                i++;
+            }
+
+            PlacedWalls = 0;
 
             simulationArea.Refresh();
         }
@@ -226,12 +293,12 @@ namespace SWARMulator
                 int i = 0;
                 int wx = 0;
                 int wy = 0;
-                while (i <= Settings.Walls)
+                while (i <= PlacedWalls)
                 {
                     wx = Walls[i, 0];
                     wy = Walls[i, 1];
 
-                    c = Color.FromArgb(255, 255, 0, 0);
+                    c = Color.FromArgb(255, 244, 95, 66);
                     sb = new SolidBrush(c);
                     e.Graphics.FillRectangle(sb, (wx * 30) - 30, (wy * 30) - 30, 30, 30);
 
@@ -329,23 +396,67 @@ namespace SWARMulator
                     bool L = false;
                     bool D = false;
                     bool U = false;
+                    
+                    int fieldR = (ay * Settings.Width) - (Settings.Width - ax - 1);
+                    int fieldL = (ay * Settings.Width) - (Settings.Width - ax + 1);
+                    int fieldD = ((ay + 1) * Settings.Width) - (Settings.Width - ax);
+                    int fieldU = ((ay - 1) * Settings.Width) - (Settings.Width - ax);
+                    int directionR;
+                    int directionL;
+                    int directionD;
+                    int directionU;
 
-                    if (ax < Settings.Width && ad != 2)
+                    if (fieldR > 0 && fieldR < Fields)
+                    {
+                        directionR = FieldUses[fieldR, 3];
+                    } else
+                    {
+                        directionR = 0;
+                    }
+
+                    if (fieldL > 0 && fieldL < Fields)
+                    {
+                        directionL = FieldUses[fieldL, 3];
+                    }
+                    else
+                    {
+                        directionL = 0;
+                    }
+
+                    if (fieldD > 0 && fieldD < Fields)
+                    {
+                        directionD = FieldUses[fieldD, 3];
+                    }
+                    else
+                    {
+                        directionD = 0;
+                    }
+
+                    if (fieldU > 0 && fieldU < Fields)
+                    {
+                        directionU = FieldUses[fieldU, 3];
+                    }
+                    else
+                    {
+                        directionU = 0;
+                    }
+
+                    if (ax < Settings.Width && ad != 2 && directionR != 1)
                     {
                         NumOfDirections++;
                         R = true;
                     }
-                    if (ax > 1 && ad != 1)
+                    if (ax > 1 && ad != 1 && directionL != 1)
                     {
                         NumOfDirections++;
                         L = true;
                     }
-                    if (ay < Settings.Height && ad != 4)
+                    if (ay < Settings.Height && ad != 4 && directionD != 1)
                     {
                         NumOfDirections++;
                         D = true;
                     }
-                    if (ay > 1 && ad != 3)
+                    if (ay > 1 && ad != 3 && directionU != 1)
                     {
                         NumOfDirections++;
                         U = true;
@@ -425,6 +536,7 @@ namespace SWARMulator
                     GenerateMap();
                 }
                 settingsAnts.Text = Ant.NumOfLivings.ToString() + " / " + Settings.Ants.ToString();
+                settingsWalls.Text = PlacedWalls.ToString() + " / " + Settings.Walls.ToString();
             }
         }
 
@@ -538,7 +650,25 @@ namespace SWARMulator
             Point coordinates = me.Location;
             int clickX = coordinates.X / 30 + 1;
             int clickY = coordinates.Y / 30 + 1;
-            MessageBox.Show("( " + clickX.ToString() + " | " + clickY.ToString() + " )");
+            int field = (clickY * Settings.Width) - (Settings.Width - clickX);
+
+            if (FieldUses[field, 3] == 0)
+            {
+                if (PlacedWalls < Settings.Walls)
+                {
+                    PlacedWalls++;
+                    Walls[PlacedWalls, 0] = clickX;
+                    Walls[PlacedWalls, 1] = clickY;
+                    FieldUses[field, 3] = 1;
+                }
+                else
+                {
+                    MessageBox.Show("Es wurden alle Mauern plaziert! Die Anzahl an Mauern kann in den Einstellungen verändert werden.", "Alle Mauern plaziert", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            } else
+            {
+                MessageBox.Show("Auf diesem Feld kann keine Mauer plaziert werden, da sich bereits ein Objekt auf diesem befindet.", "Feld besetzt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 }
