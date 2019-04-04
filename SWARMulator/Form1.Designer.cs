@@ -119,6 +119,7 @@
             this.simulationArea.Size = new System.Drawing.Size(375, 456);
             this.simulationArea.TabIndex = 1;
             this.simulationArea.TabStop = false;
+            this.simulationArea.Click += new System.EventHandler(this.simulationArea_Click);
             this.simulationArea.Paint += new System.Windows.Forms.PaintEventHandler(this.simulationArea_Paint);
             // 
             // btnStart

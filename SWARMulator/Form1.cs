@@ -40,9 +40,12 @@ namespace SWARMulator
             FieldUses = new int[100000, 3];
             Fields = 0;
             Secounds = 0;
+
+            Walls = new int[Settings.Walls, 2];
         }
 
         public static int[,] FieldUses { get; set; }
+        public static int[,] Walls { get; set; }
         public static int Fields { get; set; }
         public static int Secounds { get; set; }
         public static int Minutes { get; set; }
@@ -101,6 +104,7 @@ namespace SWARMulator
             AntListBox.Items.Clear();
 
             FieldUses = new int[100000, 3];
+            Walls = new int[Settings.Walls, 2];
             Secounds = 0;
             Minutes = 0;
             Settings.Time = 0;
@@ -213,6 +217,25 @@ namespace SWARMulator
                     }
 
                     j++;
+                }
+            }
+
+            // draw walls
+            if (Settings.Walls > 0)
+            {
+                int i = 0;
+                int wx = 0;
+                int wy = 0;
+                while (i <= Settings.Walls)
+                {
+                    wx = Walls[i, 0];
+                    wy = Walls[i, 1];
+
+                    c = Color.FromArgb(255, 255, 0, 0);
+                    sb = new SolidBrush(c);
+                    e.Graphics.FillRectangle(sb, (wx * 30) - 30, (wy * 30) - 30, 30, 30);
+
+                    i++;
                 }
             }
 
@@ -391,7 +414,8 @@ namespace SWARMulator
                 if (Ant.NumOfLivings == 0 && Ant.NumOfAnts > 0)
                 {
                     Ant.NumOfAnts = 0;
-                    int points = ((Settings.Width * Settings.Height) / Settings.Time) * 100;                    Secounds = 0;
+                    int points = ((Settings.Width * Settings.Height) / Settings.Time) * 100;
+                    Secounds = 0;
                     Minutes = 0;
                     Settings.Time = 0;
                     Settings.Running = false;
@@ -506,6 +530,15 @@ namespace SWARMulator
                 A1.Spawn();
                 i++;
             }
+        }
+
+        private void simulationArea_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            Point coordinates = me.Location;
+            int clickX = coordinates.X / 30 + 1;
+            int clickY = coordinates.Y / 30 + 1;
+            MessageBox.Show("( " + clickX.ToString() + " | " + clickY.ToString() + " )");
         }
     }
 }
