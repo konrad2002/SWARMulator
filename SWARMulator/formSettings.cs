@@ -25,6 +25,8 @@ namespace SWARMulator
             settingsWalls.Text = Settings.Walls.ToString();
             trackBarAnts.Value = Settings.Ants;
             settingsAnts.Text = Settings.Ants.ToString();
+            settingsHits.Checked = Settings.ShowHits;
+            settingsColor.Checked = Settings.ColorHits;
         }
 
         private void trackBarWidth_Scroll(object sender, EventArgs e)
@@ -53,6 +55,8 @@ namespace SWARMulator
             Settings.Height = trackBarHeight.Value;
             Settings.Walls = trackBarWalls.Value;
             Settings.Ants = trackBarAnts.Value;
+            Settings.ShowHits = settingsHits.Checked;
+            Settings.ColorHits = settingsColor.Checked;
             Ant.NumOfAnts = 0;
             Ant.AntList = new int[Settings.Ants,4];
             this.Close();

@@ -46,16 +46,19 @@
             this.settingsWalls = new System.Windows.Forms.Label();
             this.settingsHeight = new System.Windows.Forms.Label();
             this.sidebar = new System.Windows.Forms.Panel();
+            this.Time = new System.Windows.Forms.Label();
             this.SpawnAllAnts = new System.Windows.Forms.Button();
             this.AntListBox = new System.Windows.Forms.ListBox();
-            this.SpawnAnt = new System.Windows.Forms.Button();
             this.settingsBase = new System.Windows.Forms.Label();
             this.settingsFood = new System.Windows.Forms.Label();
             this.labelBase = new System.Windows.Forms.Label();
             this.labelFood = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.clock = new System.Windows.Forms.Timer(this.components);
-            this.Time = new System.Windows.Forms.Label();
+            this.simulationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.landschaftGenerierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ameisenErzeugenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -66,11 +69,12 @@
             this.mainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiToolStripMenuItem,
-            this.bearbeitenToolStripMenuItem});
+            this.bearbeitenToolStripMenuItem,
+            this.simulationToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.mainMenu.Size = new System.Drawing.Size(1020, 28);
+            this.mainMenu.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.mainMenu.Size = new System.Drawing.Size(765, 24);
             this.mainMenu.TabIndex = 0;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -79,13 +83,13 @@
             this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.beendenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
-            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
+            this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.dateiToolStripMenuItem.Text = "Datei";
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
@@ -94,36 +98,38 @@
             this.bearbeitenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.einstellungenToolStripMenuItem});
             this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
-            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(93, 24);
+            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
             // 
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
+            this.einstellungenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+O";
+            this.einstellungenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItem_Click);
             // 
             // simulationArea
             // 
             this.simulationArea.BackColor = System.Drawing.Color.White;
-            this.simulationArea.Location = new System.Drawing.Point(12, 42);
-            this.simulationArea.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.simulationArea.Location = new System.Drawing.Point(9, 34);
+            this.simulationArea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.simulationArea.Name = "simulationArea";
-            this.simulationArea.Size = new System.Drawing.Size(500, 561);
+            this.simulationArea.Size = new System.Drawing.Size(375, 456);
             this.simulationArea.TabIndex = 1;
             this.simulationArea.TabStop = false;
             this.simulationArea.Paint += new System.Windows.Forms.PaintEventHandler(this.simulationArea_Paint);
             // 
             // btnStart
             // 
-            this.btnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnStart.BackColor = System.Drawing.Color.Black;
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.Location = new System.Drawing.Point(45, 20);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnStart.Location = new System.Drawing.Point(34, 16);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(197, 36);
+            this.btnStart.Size = new System.Drawing.Size(148, 29);
             this.btnStart.TabIndex = 2;
             this.btnStart.Text = "Simulation starten";
             this.btnStart.UseVisualStyleBackColor = false;
@@ -131,13 +137,13 @@
             // 
             // btnGenerate
             // 
-            this.btnGenerate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnGenerate.BackColor = System.Drawing.Color.Black;
             this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerate.ForeColor = System.Drawing.Color.White;
-            this.btnGenerate.Location = new System.Drawing.Point(45, 60);
-            this.btnGenerate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnGenerate.Location = new System.Drawing.Point(34, 49);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(197, 36);
+            this.btnGenerate.Size = new System.Drawing.Size(148, 29);
             this.btnGenerate.TabIndex = 3;
             this.btnGenerate.Text = "Landschaft generieren";
             this.btnGenerate.UseVisualStyleBackColor = false;
@@ -146,72 +152,80 @@
             // labelWidth
             // 
             this.labelWidth.AutoSize = true;
-            this.labelWidth.Location = new System.Drawing.Point(53, 106);
+            this.labelWidth.Location = new System.Drawing.Point(40, 86);
+            this.labelWidth.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelWidth.Name = "labelWidth";
-            this.labelWidth.Size = new System.Drawing.Size(49, 17);
+            this.labelWidth.Size = new System.Drawing.Size(37, 13);
             this.labelWidth.TabIndex = 4;
             this.labelWidth.Text = "Breite:";
             // 
             // labelHeight
             // 
             this.labelHeight.AutoSize = true;
-            this.labelHeight.Location = new System.Drawing.Point(53, 132);
+            this.labelHeight.Location = new System.Drawing.Point(40, 107);
+            this.labelHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelHeight.Name = "labelHeight";
-            this.labelHeight.Size = new System.Drawing.Size(46, 17);
+            this.labelHeight.Size = new System.Drawing.Size(36, 13);
             this.labelHeight.TabIndex = 5;
             this.labelHeight.Text = "Höhe:";
             // 
             // labelAnts
             // 
             this.labelAnts.AutoSize = true;
-            this.labelAnts.Location = new System.Drawing.Point(53, 185);
+            this.labelAnts.Location = new System.Drawing.Point(40, 150);
+            this.labelAnts.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAnts.Name = "labelAnts";
-            this.labelAnts.Size = new System.Drawing.Size(66, 17);
+            this.labelAnts.Size = new System.Drawing.Size(50, 13);
             this.labelAnts.TabIndex = 7;
             this.labelAnts.Text = "Ameisen:";
             // 
             // labelWalls
             // 
             this.labelWalls.AutoSize = true;
-            this.labelWalls.Location = new System.Drawing.Point(53, 158);
+            this.labelWalls.Location = new System.Drawing.Point(40, 128);
+            this.labelWalls.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelWalls.Name = "labelWalls";
-            this.labelWalls.Size = new System.Drawing.Size(60, 17);
+            this.labelWalls.Size = new System.Drawing.Size(46, 13);
             this.labelWalls.TabIndex = 6;
             this.labelWalls.Text = "Mauern:";
             // 
             // settingsWidth
             // 
             this.settingsWidth.AutoSize = true;
-            this.settingsWidth.Location = new System.Drawing.Point(172, 106);
+            this.settingsWidth.Location = new System.Drawing.Point(129, 86);
+            this.settingsWidth.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsWidth.Name = "settingsWidth";
-            this.settingsWidth.Size = new System.Drawing.Size(16, 17);
+            this.settingsWidth.Size = new System.Drawing.Size(13, 13);
             this.settingsWidth.TabIndex = 8;
             this.settingsWidth.Text = "0";
             // 
             // settingsAnts
             // 
             this.settingsAnts.AutoSize = true;
-            this.settingsAnts.Location = new System.Drawing.Point(172, 185);
+            this.settingsAnts.Location = new System.Drawing.Point(129, 150);
+            this.settingsAnts.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsAnts.Name = "settingsAnts";
-            this.settingsAnts.Size = new System.Drawing.Size(16, 17);
+            this.settingsAnts.Size = new System.Drawing.Size(13, 13);
             this.settingsAnts.TabIndex = 9;
             this.settingsAnts.Text = "0";
             // 
             // settingsWalls
             // 
             this.settingsWalls.AutoSize = true;
-            this.settingsWalls.Location = new System.Drawing.Point(172, 158);
+            this.settingsWalls.Location = new System.Drawing.Point(129, 128);
+            this.settingsWalls.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsWalls.Name = "settingsWalls";
-            this.settingsWalls.Size = new System.Drawing.Size(16, 17);
+            this.settingsWalls.Size = new System.Drawing.Size(13, 13);
             this.settingsWalls.TabIndex = 10;
             this.settingsWalls.Text = "0";
             // 
             // settingsHeight
             // 
             this.settingsHeight.AutoSize = true;
-            this.settingsHeight.Location = new System.Drawing.Point(172, 132);
+            this.settingsHeight.Location = new System.Drawing.Point(129, 107);
+            this.settingsHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsHeight.Name = "settingsHeight";
-            this.settingsHeight.Size = new System.Drawing.Size(16, 17);
+            this.settingsHeight.Size = new System.Drawing.Size(13, 13);
             this.settingsHeight.TabIndex = 11;
             this.settingsHeight.Text = "0";
             // 
@@ -220,7 +234,6 @@
             this.sidebar.Controls.Add(this.Time);
             this.sidebar.Controls.Add(this.SpawnAllAnts);
             this.sidebar.Controls.Add(this.AntListBox);
-            this.sidebar.Controls.Add(this.SpawnAnt);
             this.sidebar.Controls.Add(this.settingsBase);
             this.sidebar.Controls.Add(this.settingsFood);
             this.sidebar.Controls.Add(this.labelBase);
@@ -235,21 +248,31 @@
             this.sidebar.Controls.Add(this.settingsWidth);
             this.sidebar.Controls.Add(this.labelWalls);
             this.sidebar.Controls.Add(this.labelAnts);
-            this.sidebar.Location = new System.Drawing.Point(535, 42);
-            this.sidebar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.sidebar.Location = new System.Drawing.Point(401, 34);
+            this.sidebar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.sidebar.Name = "sidebar";
-            this.sidebar.Size = new System.Drawing.Size(414, 561);
+            this.sidebar.Size = new System.Drawing.Size(310, 456);
             this.sidebar.TabIndex = 12;
+            // 
+            // Time
+            // 
+            this.Time.AutoSize = true;
+            this.Time.Location = new System.Drawing.Point(31, 1);
+            this.Time.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Time.Name = "Time";
+            this.Time.Size = new System.Drawing.Size(58, 13);
+            this.Time.TabIndex = 20;
+            this.Time.Text = "Zeit: 00:00";
             // 
             // SpawnAllAnts
             // 
-            this.SpawnAllAnts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.SpawnAllAnts.BackColor = System.Drawing.Color.Black;
             this.SpawnAllAnts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SpawnAllAnts.ForeColor = System.Drawing.Color.White;
-            this.SpawnAllAnts.Location = new System.Drawing.Point(44, 287);
-            this.SpawnAllAnts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SpawnAllAnts.Location = new System.Drawing.Point(33, 233);
+            this.SpawnAllAnts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.SpawnAllAnts.Name = "SpawnAllAnts";
-            this.SpawnAllAnts.Size = new System.Drawing.Size(197, 36);
+            this.SpawnAllAnts.Size = new System.Drawing.Size(148, 29);
             this.SpawnAllAnts.TabIndex = 19;
             this.SpawnAllAnts.Text = "Alle Ameisen erzeugen";
             this.SpawnAllAnts.UseVisualStyleBackColor = false;
@@ -258,62 +281,50 @@
             // AntListBox
             // 
             this.AntListBox.FormattingEnabled = true;
-            this.AntListBox.ItemHeight = 16;
             this.AntListBox.Items.AddRange(new object[] {
             "1 ( 1 | 1 )"});
-            this.AntListBox.Location = new System.Drawing.Point(249, 22);
-            this.AntListBox.Margin = new System.Windows.Forms.Padding(4);
+            this.AntListBox.Location = new System.Drawing.Point(187, 18);
             this.AntListBox.Name = "AntListBox";
-            this.AntListBox.Size = new System.Drawing.Size(126, 340);
+            this.AntListBox.Size = new System.Drawing.Size(96, 277);
             this.AntListBox.TabIndex = 18;
-            // 
-            // SpawnAnt
-            // 
-            this.SpawnAnt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.SpawnAnt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SpawnAnt.ForeColor = System.Drawing.Color.White;
-            this.SpawnAnt.Location = new System.Drawing.Point(45, 327);
-            this.SpawnAnt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.SpawnAnt.Name = "SpawnAnt";
-            this.SpawnAnt.Size = new System.Drawing.Size(197, 36);
-            this.SpawnAnt.TabIndex = 16;
-            this.SpawnAnt.Text = "Ameise erzeugen";
-            this.SpawnAnt.UseVisualStyleBackColor = false;
-            this.SpawnAnt.Click += new System.EventHandler(this.SpawnAnt_Click);
             // 
             // settingsBase
             // 
             this.settingsBase.AutoSize = true;
-            this.settingsBase.Location = new System.Drawing.Point(172, 225);
+            this.settingsBase.Location = new System.Drawing.Point(129, 183);
+            this.settingsBase.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsBase.Name = "settingsBase";
-            this.settingsBase.Size = new System.Drawing.Size(16, 17);
+            this.settingsBase.Size = new System.Drawing.Size(13, 13);
             this.settingsBase.TabIndex = 15;
             this.settingsBase.Text = "0";
             // 
             // settingsFood
             // 
             this.settingsFood.AutoSize = true;
-            this.settingsFood.Location = new System.Drawing.Point(172, 252);
+            this.settingsFood.Location = new System.Drawing.Point(129, 205);
+            this.settingsFood.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.settingsFood.Name = "settingsFood";
-            this.settingsFood.Size = new System.Drawing.Size(16, 17);
+            this.settingsFood.Size = new System.Drawing.Size(13, 13);
             this.settingsFood.TabIndex = 14;
             this.settingsFood.Text = "0";
             // 
             // labelBase
             // 
             this.labelBase.AutoSize = true;
-            this.labelBase.Location = new System.Drawing.Point(53, 225);
+            this.labelBase.Location = new System.Drawing.Point(40, 183);
+            this.labelBase.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelBase.Name = "labelBase";
-            this.labelBase.Size = new System.Drawing.Size(110, 17);
+            this.labelBase.Size = new System.Drawing.Size(83, 13);
             this.labelBase.TabIndex = 12;
             this.labelBase.Text = "Ameisenhaufen:";
             // 
             // labelFood
             // 
             this.labelFood.AutoSize = true;
-            this.labelFood.Location = new System.Drawing.Point(53, 252);
+            this.labelFood.Location = new System.Drawing.Point(40, 205);
+            this.labelFood.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFood.Name = "labelFood";
-            this.labelFood.Size = new System.Drawing.Size(49, 17);
+            this.labelFood.Size = new System.Drawing.Size(37, 13);
             this.labelFood.TabIndex = 13;
             this.labelFood.Text = "Futter:";
             // 
@@ -328,26 +339,54 @@
             this.clock.Interval = 1000;
             this.clock.Tick += new System.EventHandler(this.clock_Tick);
             // 
-            // Time
+            // simulationToolStripMenuItem
             // 
-            this.Time.AutoSize = true;
-            this.Time.Location = new System.Drawing.Point(41, 1);
-            this.Time.Name = "Time";
-            this.Time.Size = new System.Drawing.Size(76, 17);
-            this.Time.TabIndex = 20;
-            this.Time.Text = "Zeit: 00:00";
+            this.simulationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startenToolStripMenuItem,
+            this.landschaftGenerierenToolStripMenuItem,
+            this.ameisenErzeugenToolStripMenuItem});
+            this.simulationToolStripMenuItem.Name = "simulationToolStripMenuItem";
+            this.simulationToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.simulationToolStripMenuItem.Text = "Simulation";
+            // 
+            // startenToolStripMenuItem
+            // 
+            this.startenToolStripMenuItem.Name = "startenToolStripMenuItem";
+            this.startenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+R";
+            this.startenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.startenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.startenToolStripMenuItem.Text = "Starten";
+            this.startenToolStripMenuItem.Click += new System.EventHandler(this.startenToolStripMenuItem_Click);
+            // 
+            // landschaftGenerierenToolStripMenuItem
+            // 
+            this.landschaftGenerierenToolStripMenuItem.Name = "landschaftGenerierenToolStripMenuItem";
+            this.landschaftGenerierenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+G";
+            this.landschaftGenerierenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.landschaftGenerierenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.landschaftGenerierenToolStripMenuItem.Text = "Landschaft generieren";
+            this.landschaftGenerierenToolStripMenuItem.Click += new System.EventHandler(this.landschaftGenerierenToolStripMenuItem_Click);
+            // 
+            // ameisenErzeugenToolStripMenuItem
+            // 
+            this.ameisenErzeugenToolStripMenuItem.Name = "ameisenErzeugenToolStripMenuItem";
+            this.ameisenErzeugenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+A";
+            this.ameisenErzeugenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.ameisenErzeugenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.ameisenErzeugenToolStripMenuItem.Text = "Ameisen erzeugen";
+            this.ameisenErzeugenToolStripMenuItem.Click += new System.EventHandler(this.ameisenErzeugenToolStripMenuItem_Click);
             // 
             // main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1020, 617);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(765, 501);
             this.Controls.Add(this.sidebar);
             this.Controls.Add(this.simulationArea);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "main";
             this.Text = "SWARMulator";
             this.Load += new System.EventHandler(this.main_Load);
@@ -384,12 +423,15 @@
         private System.Windows.Forms.Label settingsFood;
         private System.Windows.Forms.Label labelBase;
         private System.Windows.Forms.Label labelFood;
-        private System.Windows.Forms.Button SpawnAnt;
         private System.Windows.Forms.ListBox AntListBox;
         private System.Windows.Forms.ToolStripMenuItem beendenToolStripMenuItem;
         private System.Windows.Forms.Button SpawnAllAnts;
         private System.Windows.Forms.Timer clock;
         private System.Windows.Forms.Label Time;
+        private System.Windows.Forms.ToolStripMenuItem simulationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem landschaftGenerierenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ameisenErzeugenToolStripMenuItem;
     }
 }
 

@@ -15,6 +15,8 @@ namespace SWARMulator
         public static int Size { get; set; }
         public static bool Running { get; set; }
         public static int Time { get; set; }
+        public static bool ShowHits { get; set; }
+        public static bool ColorHits { get; set; }
 
         public class Base
         {
