@@ -676,7 +676,6 @@ namespace SWARMulator
                     Walls[PlacedWalls, 0] = clickX;
                     Walls[PlacedWalls, 1] = clickY;
                     FieldUses[field, 3] = 1;
-                    simulationArea.Refresh();
                 }
                 else
                 {
@@ -689,9 +688,16 @@ namespace SWARMulator
                     FieldUses[field, 3] = 4;
                 } else
                 {
-                    MessageBox.Show("Auf diesem Feld kann keine Mauer plaziert werden, da sich bereits ein Objekt auf diesem befindet.", "Feld besetzt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    if (FieldUses[field, 3] == 4)
+                    {
+                        FieldUses[field, 3] = 1;
+                    } else
+                    {
+                        MessageBox.Show("Auf diesem Feld kann keine Mauer plaziert werden, da sich bereits ein Objekt auf diesem befindet.", "Feld besetzt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
             }
+            simulationArea.Refresh();
         }
 
         private void CreateWalls_Click(object sender, EventArgs e)
