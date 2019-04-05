@@ -59,6 +59,7 @@
             this.startenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.landschaftGenerierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ameisenErzeugenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CreateWalls = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -232,6 +233,7 @@
             // 
             // sidebar
             // 
+            this.sidebar.Controls.Add(this.CreateWalls);
             this.sidebar.Controls.Add(this.Time);
             this.sidebar.Controls.Add(this.SpawnAllAnts);
             this.sidebar.Controls.Add(this.AntListBox);
@@ -377,6 +379,20 @@
             this.ameisenErzeugenToolStripMenuItem.Text = "Ameisen erzeugen";
             this.ameisenErzeugenToolStripMenuItem.Click += new System.EventHandler(this.ameisenErzeugenToolStripMenuItem_Click);
             // 
+            // CreateWalls
+            // 
+            this.CreateWalls.BackColor = System.Drawing.Color.Black;
+            this.CreateWalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateWalls.ForeColor = System.Drawing.Color.White;
+            this.CreateWalls.Location = new System.Drawing.Point(34, 266);
+            this.CreateWalls.Margin = new System.Windows.Forms.Padding(2);
+            this.CreateWalls.Name = "CreateWalls";
+            this.CreateWalls.Size = new System.Drawing.Size(148, 29);
+            this.CreateWalls.TabIndex = 21;
+            this.CreateWalls.Text = "Mauern generieren";
+            this.CreateWalls.UseVisualStyleBackColor = false;
+            this.CreateWalls.Click += new System.EventHandler(this.CreateWalls_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,6 +449,7 @@
         private System.Windows.Forms.ToolStripMenuItem startenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem landschaftGenerierenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ameisenErzeugenToolStripMenuItem;
+        private System.Windows.Forms.Button CreateWalls;
     }
 }
 

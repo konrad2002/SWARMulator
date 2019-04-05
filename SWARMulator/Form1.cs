@@ -216,6 +216,11 @@ namespace SWARMulator
             form.Show();
         }
 
+        public void GenerateWalls()
+        {
+            MessageBox.Show("generate walls");
+        }
+
         // executed from timer
         private void simulationArea_Paint(object sender, PaintEventArgs e)
         {
@@ -669,6 +674,11 @@ namespace SWARMulator
             {
                 MessageBox.Show("Auf diesem Feld kann keine Mauer plaziert werden, da sich bereits ein Objekt auf diesem befindet.", "Feld besetzt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void CreateWalls_Click(object sender, EventArgs e)
+        {
+            GenerateWalls();
         }
     }
 }
