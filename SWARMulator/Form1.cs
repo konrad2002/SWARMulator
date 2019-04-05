@@ -298,12 +298,24 @@ namespace SWARMulator
                 int i = 0;
                 int wx = 0;
                 int wy = 0;
+                int wallField;
                 while (i <= PlacedWalls)
                 {
                     wx = Walls[i, 0];
                     wy = Walls[i, 1];
+                    wallField = (wy * Settings.Width) - (Settings.Width - wx);
 
-                    c = Color.FromArgb(150, 255, 0, 0);
+                    if (wallField > 0)
+                    {
+                        if (FieldUses[wallField, 3] == 4)
+                        {
+                            c = Color.FromArgb(150, 255, 132, 132);
+                        }
+                        else
+                        {
+                            c = Color.FromArgb(150, 255, 0, 0);
+                        }
+                    }
                     sb = new SolidBrush(c);
                     e.Graphics.FillRectangle(sb, (wx * 30) - 30, (wy * 30) - 30, 30, 30);
 
@@ -656,7 +668,6 @@ namespace SWARMulator
             int clickX = coordinates.X / 30 + 1;
             int clickY = coordinates.Y / 30 + 1;
             int field = (clickY * Settings.Width) - (Settings.Width - clickX);
-
             if (FieldUses[field, 3] == 0)
             {
                 if (PlacedWalls < Settings.Walls)
@@ -673,7 +684,13 @@ namespace SWARMulator
                 }
             } else
             {
-                MessageBox.Show("Auf diesem Feld kann keine Mauer plaziert werden, da sich bereits ein Objekt auf diesem befindet.", "Feld besetzt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                if (FieldUses[field, 3] == 1)
+                {
+                    FieldUses[field, 3] = 4;
+                } else
+                {
+                    MessageBox.Show("Auf diesem Feld kann keine Mauer plaziert werden, da sich bereits ein Objekt auf diesem befindet.", "Feld besetzt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
 
