@@ -60,6 +60,7 @@
             this.landschaftGenerierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ameisenErzeugenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CreateWalls = new System.Windows.Forms.Button();
+            this.UpdateGraphic = new System.Windows.Forms.Button();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -233,6 +234,7 @@
             // 
             // sidebar
             // 
+            this.sidebar.Controls.Add(this.UpdateGraphic);
             this.sidebar.Controls.Add(this.CreateWalls);
             this.sidebar.Controls.Add(this.Time);
             this.sidebar.Controls.Add(this.SpawnAllAnts);
@@ -393,6 +395,19 @@
             this.CreateWalls.UseVisualStyleBackColor = false;
             this.CreateWalls.Click += new System.EventHandler(this.CreateWalls_Click);
             // 
+            // UpdateGraphic
+            // 
+            this.UpdateGraphic.BackColor = System.Drawing.Color.Black;
+            this.UpdateGraphic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UpdateGraphic.ForeColor = System.Drawing.Color.White;
+            this.UpdateGraphic.Location = new System.Drawing.Point(34, 299);
+            this.UpdateGraphic.Margin = new System.Windows.Forms.Padding(2);
+            this.UpdateGraphic.Name = "UpdateGraphic";
+            this.UpdateGraphic.Size = new System.Drawing.Size(148, 29);
+            this.UpdateGraphic.TabIndex = 22;
+            this.UpdateGraphic.Text = "Grafik updaten";
+            this.UpdateGraphic.UseVisualStyleBackColor = false;
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -450,6 +465,7 @@
         private System.Windows.Forms.ToolStripMenuItem landschaftGenerierenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ameisenErzeugenToolStripMenuItem;
         private System.Windows.Forms.Button CreateWalls;
+        private System.Windows.Forms.Button UpdateGraphic;
     }
 }
 

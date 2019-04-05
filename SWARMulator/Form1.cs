@@ -303,7 +303,7 @@ namespace SWARMulator
                     wx = Walls[i, 0];
                     wy = Walls[i, 1];
 
-                    c = Color.FromArgb(255, 244, 95, 66);
+                    c = Color.FromArgb(150, 255, 0, 0);
                     sb = new SolidBrush(c);
                     e.Graphics.FillRectangle(sb, (wx * 30) - 30, (wy * 30) - 30, 30, 30);
 
@@ -665,6 +665,7 @@ namespace SWARMulator
                     Walls[PlacedWalls, 0] = clickX;
                     Walls[PlacedWalls, 1] = clickY;
                     FieldUses[field, 3] = 1;
+                    simulationArea.Refresh();
                 }
                 else
                 {
