@@ -20,10 +20,10 @@ namespace SWARMulator
             new Settings.Food();
             new Ant();
 
-            Settings.Width = 20;
-            Settings.Height = 20;
-            Settings.Walls = 10;
-            Settings.Ants = 5;
+            Settings.Width = 30;
+            Settings.Height = 30;
+            Settings.Walls = 100;
+            Settings.Ants = 100;
             Settings.Size = 30;
             Settings.Base.X = 1;
             Settings.Base.Y = 1;
@@ -37,6 +37,7 @@ namespace SWARMulator
             Ant.NumOfFinishers = 0;
             Ant.AntList = new int[Settings.Ants,4];
 
+            // all fields: x,y,hits,type
             FieldUses = new int[100000, 4];
             Fields = 0;
             Secounds = 0;
@@ -218,7 +219,25 @@ namespace SWARMulator
 
         public void GenerateWalls()
         {
-            MessageBox.Show("generate walls");
+            GenWall:
+            int fx = random.Next(1, Settings.Width);
+            int fy = random.Next(1, Settings.Height);
+            int field = (fy * Settings.Width) - (Settings.Width - fx);
+            if (FieldUses[field, 3] == 0)
+            {
+                if (PlacedWalls < Settings.Walls)
+                {
+                    PlacedWalls++;
+                    Walls[PlacedWalls, 0] = fx;
+                    Walls[PlacedWalls, 1] = fy;
+                    FieldUses[field, 3] = 1;
+                }
+            }
+            simulationArea.Refresh();
+            if (PlacedWalls < Settings.Walls)
+            {
+                goto GenWall;
+            }
         }
 
         // executed from timer
@@ -487,12 +506,32 @@ namespace SWARMulator
                     if (U) directions.Add("U");
 
                     string[] directionsList = directions.ToArray();
+                    string direc = "";
 
-
-                    
-                    int rnd = random.Next(0, NumOfDirections);
-
-                    string direc = directionsList[rnd];
+                    // if no possible direction
+                    if (directionsList.Length == 0)
+                    {
+                        if (ad == 1)
+                        {
+                            direc = "L";
+                        }
+                        if (ad == 2)
+                        {
+                            direc = "R";
+                        }
+                        if (ad == 3)
+                        {
+                            direc = "U";
+                        }
+                        if (ad == 4)
+                        {
+                            direc = "D";
+                        }
+                    } else
+                    {
+                        int rnd = random.Next(0, NumOfDirections);
+                        direc = directionsList[rnd];
+                    }
 
                     if (direc == "R")
                     {

@@ -29,19 +29,27 @@ namespace SWARMulator
             settingsColor.Checked = Settings.ColorHits;
         }
 
+        public void SetMaxWalls()
+        {
+            trackBarWalls.Maximum = trackBarWidth.Value * trackBarHeight.Value / 9;
+        }
+
         private void trackBarWidth_Scroll(object sender, EventArgs e)
         {
             settingsWidth.Text = trackBarWidth.Value.ToString();
+            SetMaxWalls();
         }
 
         private void trackBarHeight_Scroll(object sender, EventArgs e)
         {
             settingsHeight.Text = trackBarHeight.Value.ToString();
+            SetMaxWalls();
         }
 
         private void trackBarWalls_Scroll(object sender, EventArgs e)
         {
             settingsWalls.Text = trackBarWalls.Value.ToString();
+            SetMaxWalls();
         }
 
         private void trackBarAnts_Scroll(object sender, EventArgs e)
