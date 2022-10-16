@@ -47,6 +47,14 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.settingsColor = new System.Windows.Forms.CheckBox();
             this.settingsHits = new System.Windows.Forms.CheckBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.NumFoodY = new System.Windows.Forms.NumericUpDown();
+            this.NumFoodX = new System.Windows.Forms.NumericUpDown();
+            this.NumBaseY = new System.Windows.Forms.NumericUpDown();
+            this.NumBaseX = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SetCoords = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWidth)).BeginInit();
@@ -54,6 +62,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarAnts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWalls)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumFoodY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumFoodX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumBaseY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumBaseX)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -137,7 +150,7 @@
             // 
             // settingsSave
             // 
-            this.settingsSave.Location = new System.Drawing.Point(268, 320);
+            this.settingsSave.Location = new System.Drawing.Point(268, 412);
             this.settingsSave.Margin = new System.Windows.Forms.Padding(2);
             this.settingsSave.Name = "settingsSave";
             this.settingsSave.Size = new System.Drawing.Size(70, 23);
@@ -148,7 +161,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(343, 320);
+            this.btnClose.Location = new System.Drawing.Point(343, 412);
             this.btnClose.Margin = new System.Windows.Forms.Padding(2);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(70, 23);
@@ -262,11 +275,146 @@
             this.settingsHits.Text = "Zahl der Feldbenutzungen anzeigen";
             this.settingsHits.UseVisualStyleBackColor = true;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.NumFoodY);
+            this.groupBox4.Controls.Add(this.NumFoodX);
+            this.groupBox4.Controls.Add(this.NumBaseY);
+            this.groupBox4.Controls.Add(this.NumBaseX);
+            this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.label1);
+            this.groupBox4.Controls.Add(this.SetCoords);
+            this.groupBox4.Location = new System.Drawing.Point(9, 321);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(404, 86);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Ameisenhaufen und Futter";
+            // 
+            // NumFoodY
+            // 
+            this.NumFoodY.Location = new System.Drawing.Point(306, 47);
+            this.NumFoodY.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.NumFoodY.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumFoodY.Name = "NumFoodY";
+            this.NumFoodY.Size = new System.Drawing.Size(41, 20);
+            this.NumFoodY.TabIndex = 16;
+            this.NumFoodY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // NumFoodX
+            // 
+            this.NumFoodX.Location = new System.Drawing.Point(259, 47);
+            this.NumFoodX.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.NumFoodX.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumFoodX.Name = "NumFoodX";
+            this.NumFoodX.Size = new System.Drawing.Size(41, 20);
+            this.NumFoodX.TabIndex = 15;
+            this.NumFoodX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // NumBaseY
+            // 
+            this.NumBaseY.Location = new System.Drawing.Point(128, 47);
+            this.NumBaseY.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.NumBaseY.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumBaseY.Name = "NumBaseY";
+            this.NumBaseY.Size = new System.Drawing.Size(41, 20);
+            this.NumBaseY.TabIndex = 14;
+            this.NumBaseY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // NumBaseX
+            // 
+            this.NumBaseX.Location = new System.Drawing.Point(81, 47);
+            this.NumBaseX.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.NumBaseX.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumBaseX.Name = "NumBaseX";
+            this.NumBaseX.Size = new System.Drawing.Size(41, 20);
+            this.NumBaseX.TabIndex = 13;
+            this.NumBaseX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(210, 49);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Futter:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(31, 49);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(45, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Haufen:";
+            // 
+            // SetCoords
+            // 
+            this.SetCoords.AutoSize = true;
+            this.SetCoords.Location = new System.Drawing.Point(16, 19);
+            this.SetCoords.Name = "SetCoords";
+            this.SetCoords.Size = new System.Drawing.Size(129, 17);
+            this.SetCoords.TabIndex = 2;
+            this.SetCoords.Text = "Koordinaten festlegen";
+            this.SetCoords.UseVisualStyleBackColor = true;
+            // 
             // formSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 352);
+            this.ClientSize = new System.Drawing.Size(422, 446);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnClose);
@@ -286,6 +434,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWalls)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumFoodY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumFoodX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumBaseY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumBaseX)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -311,5 +465,13 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox settingsColor;
         private System.Windows.Forms.CheckBox settingsHits;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.NumericUpDown NumFoodY;
+        private System.Windows.Forms.NumericUpDown NumFoodX;
+        private System.Windows.Forms.NumericUpDown NumBaseY;
+        private System.Windows.Forms.NumericUpDown NumBaseX;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox SetCoords;
     }
 }

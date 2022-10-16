@@ -34,6 +34,10 @@
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.simulationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.landschaftGenerierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ameisenErzeugenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simulationArea = new System.Windows.Forms.PictureBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnGenerate = new System.Windows.Forms.Button();
@@ -46,6 +50,8 @@
             this.settingsWalls = new System.Windows.Forms.Label();
             this.settingsHeight = new System.Windows.Forms.Label();
             this.sidebar = new System.Windows.Forms.Panel();
+            this.UpdateGraphic = new System.Windows.Forms.Button();
+            this.CreateWalls = new System.Windows.Forms.Button();
             this.Time = new System.Windows.Forms.Label();
             this.SpawnAllAnts = new System.Windows.Forms.Button();
             this.AntListBox = new System.Windows.Forms.ListBox();
@@ -55,12 +61,7 @@
             this.labelFood = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.clock = new System.Windows.Forms.Timer(this.components);
-            this.simulationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.landschaftGenerierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ameisenErzeugenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CreateWalls = new System.Windows.Forms.Button();
-            this.UpdateGraphic = new System.Windows.Forms.Button();
+            this.Steps = new System.Windows.Forms.Label();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.simulationArea)).BeginInit();
             this.sidebar.SuspendLayout();
@@ -112,11 +113,48 @@
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItem_Click);
             // 
+            // simulationToolStripMenuItem
+            // 
+            this.simulationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startenToolStripMenuItem,
+            this.landschaftGenerierenToolStripMenuItem,
+            this.ameisenErzeugenToolStripMenuItem});
+            this.simulationToolStripMenuItem.Name = "simulationToolStripMenuItem";
+            this.simulationToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.simulationToolStripMenuItem.Text = "Simulation";
+            // 
+            // startenToolStripMenuItem
+            // 
+            this.startenToolStripMenuItem.Name = "startenToolStripMenuItem";
+            this.startenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+R";
+            this.startenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.startenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.startenToolStripMenuItem.Text = "Starten";
+            this.startenToolStripMenuItem.Click += new System.EventHandler(this.startenToolStripMenuItem_Click);
+            // 
+            // landschaftGenerierenToolStripMenuItem
+            // 
+            this.landschaftGenerierenToolStripMenuItem.Name = "landschaftGenerierenToolStripMenuItem";
+            this.landschaftGenerierenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+G";
+            this.landschaftGenerierenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.landschaftGenerierenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.landschaftGenerierenToolStripMenuItem.Text = "Landschaft generieren";
+            this.landschaftGenerierenToolStripMenuItem.Click += new System.EventHandler(this.landschaftGenerierenToolStripMenuItem_Click);
+            // 
+            // ameisenErzeugenToolStripMenuItem
+            // 
+            this.ameisenErzeugenToolStripMenuItem.Name = "ameisenErzeugenToolStripMenuItem";
+            this.ameisenErzeugenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+A";
+            this.ameisenErzeugenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.ameisenErzeugenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.ameisenErzeugenToolStripMenuItem.Text = "Ameisen erzeugen";
+            this.ameisenErzeugenToolStripMenuItem.Click += new System.EventHandler(this.ameisenErzeugenToolStripMenuItem_Click);
+            // 
             // simulationArea
             // 
             this.simulationArea.BackColor = System.Drawing.Color.White;
             this.simulationArea.Location = new System.Drawing.Point(9, 34);
-            this.simulationArea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.simulationArea.Margin = new System.Windows.Forms.Padding(2);
             this.simulationArea.Name = "simulationArea";
             this.simulationArea.Size = new System.Drawing.Size(375, 456);
             this.simulationArea.TabIndex = 1;
@@ -130,7 +168,7 @@
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.ForeColor = System.Drawing.Color.White;
             this.btnStart.Location = new System.Drawing.Point(34, 16);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(2);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(148, 29);
             this.btnStart.TabIndex = 2;
@@ -144,7 +182,7 @@
             this.btnGenerate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerate.ForeColor = System.Drawing.Color.White;
             this.btnGenerate.Location = new System.Drawing.Point(34, 49);
-            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
             this.btnGenerate.Size = new System.Drawing.Size(148, 29);
             this.btnGenerate.TabIndex = 3;
@@ -234,6 +272,7 @@
             // 
             // sidebar
             // 
+            this.sidebar.Controls.Add(this.Steps);
             this.sidebar.Controls.Add(this.UpdateGraphic);
             this.sidebar.Controls.Add(this.CreateWalls);
             this.sidebar.Controls.Add(this.Time);
@@ -254,10 +293,37 @@
             this.sidebar.Controls.Add(this.labelWalls);
             this.sidebar.Controls.Add(this.labelAnts);
             this.sidebar.Location = new System.Drawing.Point(401, 34);
-            this.sidebar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.sidebar.Margin = new System.Windows.Forms.Padding(2);
             this.sidebar.Name = "sidebar";
             this.sidebar.Size = new System.Drawing.Size(310, 456);
             this.sidebar.TabIndex = 12;
+            // 
+            // UpdateGraphic
+            // 
+            this.UpdateGraphic.BackColor = System.Drawing.Color.Black;
+            this.UpdateGraphic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.UpdateGraphic.ForeColor = System.Drawing.Color.White;
+            this.UpdateGraphic.Location = new System.Drawing.Point(34, 299);
+            this.UpdateGraphic.Margin = new System.Windows.Forms.Padding(2);
+            this.UpdateGraphic.Name = "UpdateGraphic";
+            this.UpdateGraphic.Size = new System.Drawing.Size(148, 29);
+            this.UpdateGraphic.TabIndex = 22;
+            this.UpdateGraphic.Text = "Grafik updaten";
+            this.UpdateGraphic.UseVisualStyleBackColor = false;
+            // 
+            // CreateWalls
+            // 
+            this.CreateWalls.BackColor = System.Drawing.Color.Black;
+            this.CreateWalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateWalls.ForeColor = System.Drawing.Color.White;
+            this.CreateWalls.Location = new System.Drawing.Point(34, 266);
+            this.CreateWalls.Margin = new System.Windows.Forms.Padding(2);
+            this.CreateWalls.Name = "CreateWalls";
+            this.CreateWalls.Size = new System.Drawing.Size(148, 29);
+            this.CreateWalls.TabIndex = 21;
+            this.CreateWalls.Text = "Mauern generieren";
+            this.CreateWalls.UseVisualStyleBackColor = false;
+            this.CreateWalls.Click += new System.EventHandler(this.CreateWalls_Click);
             // 
             // Time
             // 
@@ -275,7 +341,7 @@
             this.SpawnAllAnts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SpawnAllAnts.ForeColor = System.Drawing.Color.White;
             this.SpawnAllAnts.Location = new System.Drawing.Point(33, 233);
-            this.SpawnAllAnts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SpawnAllAnts.Margin = new System.Windows.Forms.Padding(2);
             this.SpawnAllAnts.Name = "SpawnAllAnts";
             this.SpawnAllAnts.Size = new System.Drawing.Size(148, 29);
             this.SpawnAllAnts.TabIndex = 19;
@@ -344,69 +410,15 @@
             this.clock.Interval = 1000;
             this.clock.Tick += new System.EventHandler(this.clock_Tick);
             // 
-            // simulationToolStripMenuItem
+            // Steps
             // 
-            this.simulationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startenToolStripMenuItem,
-            this.landschaftGenerierenToolStripMenuItem,
-            this.ameisenErzeugenToolStripMenuItem});
-            this.simulationToolStripMenuItem.Name = "simulationToolStripMenuItem";
-            this.simulationToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.simulationToolStripMenuItem.Text = "Simulation";
-            // 
-            // startenToolStripMenuItem
-            // 
-            this.startenToolStripMenuItem.Name = "startenToolStripMenuItem";
-            this.startenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+R";
-            this.startenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.startenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.startenToolStripMenuItem.Text = "Starten";
-            this.startenToolStripMenuItem.Click += new System.EventHandler(this.startenToolStripMenuItem_Click);
-            // 
-            // landschaftGenerierenToolStripMenuItem
-            // 
-            this.landschaftGenerierenToolStripMenuItem.Name = "landschaftGenerierenToolStripMenuItem";
-            this.landschaftGenerierenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+G";
-            this.landschaftGenerierenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.landschaftGenerierenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.landschaftGenerierenToolStripMenuItem.Text = "Landschaft generieren";
-            this.landschaftGenerierenToolStripMenuItem.Click += new System.EventHandler(this.landschaftGenerierenToolStripMenuItem_Click);
-            // 
-            // ameisenErzeugenToolStripMenuItem
-            // 
-            this.ameisenErzeugenToolStripMenuItem.Name = "ameisenErzeugenToolStripMenuItem";
-            this.ameisenErzeugenToolStripMenuItem.ShortcutKeyDisplayString = "Strg+A";
-            this.ameisenErzeugenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.ameisenErzeugenToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
-            this.ameisenErzeugenToolStripMenuItem.Text = "Ameisen erzeugen";
-            this.ameisenErzeugenToolStripMenuItem.Click += new System.EventHandler(this.ameisenErzeugenToolStripMenuItem_Click);
-            // 
-            // CreateWalls
-            // 
-            this.CreateWalls.BackColor = System.Drawing.Color.Black;
-            this.CreateWalls.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CreateWalls.ForeColor = System.Drawing.Color.White;
-            this.CreateWalls.Location = new System.Drawing.Point(34, 266);
-            this.CreateWalls.Margin = new System.Windows.Forms.Padding(2);
-            this.CreateWalls.Name = "CreateWalls";
-            this.CreateWalls.Size = new System.Drawing.Size(148, 29);
-            this.CreateWalls.TabIndex = 21;
-            this.CreateWalls.Text = "Mauern generieren";
-            this.CreateWalls.UseVisualStyleBackColor = false;
-            this.CreateWalls.Click += new System.EventHandler(this.CreateWalls_Click);
-            // 
-            // UpdateGraphic
-            // 
-            this.UpdateGraphic.BackColor = System.Drawing.Color.Black;
-            this.UpdateGraphic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.UpdateGraphic.ForeColor = System.Drawing.Color.White;
-            this.UpdateGraphic.Location = new System.Drawing.Point(34, 299);
-            this.UpdateGraphic.Margin = new System.Windows.Forms.Padding(2);
-            this.UpdateGraphic.Name = "UpdateGraphic";
-            this.UpdateGraphic.Size = new System.Drawing.Size(148, 29);
-            this.UpdateGraphic.TabIndex = 22;
-            this.UpdateGraphic.Text = "Grafik updaten";
-            this.UpdateGraphic.UseVisualStyleBackColor = false;
+            this.Steps.AutoSize = true;
+            this.Steps.Location = new System.Drawing.Point(104, 1);
+            this.Steps.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.Steps.Name = "Steps";
+            this.Steps.Size = new System.Drawing.Size(55, 13);
+            this.Steps.TabIndex = 23;
+            this.Steps.Text = "Schritte: 0";
             // 
             // main
             // 
@@ -418,7 +430,7 @@
             this.Controls.Add(this.simulationArea);
             this.Controls.Add(this.mainMenu);
             this.MainMenuStrip = this.mainMenu;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "main";
             this.Text = "SWARMulator";
             this.Load += new System.EventHandler(this.main_Load);
@@ -466,6 +478,7 @@
         private System.Windows.Forms.ToolStripMenuItem ameisenErzeugenToolStripMenuItem;
         private System.Windows.Forms.Button CreateWalls;
         private System.Windows.Forms.Button UpdateGraphic;
+        private System.Windows.Forms.Label Steps;
     }
 }
 

@@ -65,6 +65,14 @@ namespace SWARMulator
             Settings.Ants = trackBarAnts.Value;
             Settings.ShowHits = settingsHits.Checked;
             Settings.ColorHits = settingsColor.Checked;
+            if (SetCoords.Checked)
+            {
+                Settings.SetCoords = true;
+                Settings.Base.X = Decimal.ToInt32(NumBaseX.Value);
+                Settings.Base.Y = Decimal.ToInt32(NumBaseY.Value);
+                Settings.Food.X = Decimal.ToInt32(NumFoodX.Value);
+                Settings.Food.Y = Decimal.ToInt32(NumFoodY.Value);
+            }
             Ant.NumOfAnts = 0;
             Ant.AntList = new int[Settings.Ants,4];
             this.Close();

@@ -21,7 +21,7 @@ namespace SWARMulator
             new Ant();
 
             Settings.Width = 30;
-            Settings.Height = 30;
+            Settings.Height = 20;
             Settings.Walls = 100;
             Settings.Ants = 100;
             Settings.Size = 30;
@@ -30,9 +30,11 @@ namespace SWARMulator
             Settings.Food.X = 1;
             Settings.Food.Y = 1;
             Settings.Running = false;
-            Settings.ShowHits = false;
+            Settings.ShowHits = true;
             Settings.ColorHits = true;
-            
+            Settings.SetCoords = false;
+            Settings.Steps = 0;
+
             Ant.NumOfAnts = 0;
             Ant.NumOfFinishers = 0;
             Ant.AntList = new int[Settings.Ants,4];
@@ -66,32 +68,36 @@ namespace SWARMulator
 
         public void GenerateMap()
         {
-            Settings.Base.X = random.Next(1, Settings.Width - 1);
-            Settings.Base.Y = random.Next(1, Settings.Height - 1);
+            if (!Settings.SetCoords)
+            {
+                Settings.Base.X = random.Next(1, Settings.Width - 1);
+                Settings.Base.Y = random.Next(1, Settings.Height - 1);
 
-            GenFood:
-            bool error = false;
-            int fx = 0;
-            int fy = 0;
-            fx = random.Next(1, Settings.Width - 1);
-            fy = random.Next(1, Settings.Height - 1);
-            if (fx > (Settings.Base.X - 4) && fx < (Settings.Base.X + 4))
-            {
-                error = true;
-            }
+                GenFood:
+                bool error = false;
+                int fx = 0;
+                int fy = 0;
+                fx = random.Next(1, Settings.Width - 1);
+                fy = random.Next(1, Settings.Height - 1);
+                if (fx > (Settings.Base.X - 4) && fx < (Settings.Base.X + 4))
+                {
+                    error = true;
+                }
 
-            if (fy > (Settings.Base.Y - 4) && fy < (Settings.Base.Y + 4))
-            {
-                error = true;
-            }
+                if (fy > (Settings.Base.Y - 4) && fy < (Settings.Base.Y + 4))
+                {
+                    error = true;
+                }
 
-            if (error)
-            {
-                goto GenFood;
-            } else
-            {
-                Settings.Food.X = fx;
-                Settings.Food.Y = fy;
+                if (error)
+                {
+                    goto GenFood;
+                }
+                else
+                {
+                    Settings.Food.X = fx;
+                    Settings.Food.Y = fy;
+                }
             }
 
             Ant.NumOfAnts = 0;
@@ -126,7 +132,7 @@ namespace SWARMulator
             Fields = Settings.Width * Settings.Height;
             FieldUses[0, 0] = 0;
             FieldUses[0, 1] = 0;
-            FieldUses[0, 2] = 0;
+            FieldUses[0, 2] = 1;
             FieldUses[0, 3] = 0;
 
             int i = 1;
@@ -138,7 +144,7 @@ namespace SWARMulator
             {
                 FieldUses[i, 0] = cx;
                 FieldUses[i, 1] = cy;
-                FieldUses[i, 2] = 0;
+                FieldUses[i, 2] = 1;
                 FieldUses[i, 3] = 0;
 
                 if (cx >= Settings.Width)
@@ -243,6 +249,11 @@ namespace SWARMulator
         // executed from timer
         private void simulationArea_Paint(object sender, PaintEventArgs e)
         {
+            if (Settings.Running)
+            {
+                Settings.Steps++;
+                Steps.Text = "Schritte: " + Settings.Steps.ToString();
+            }
             Graphics g = e.Graphics;
             Pen p = new Pen(Color.Black);
 
@@ -375,7 +386,6 @@ namespace SWARMulator
                 ax = Ant.AntList[n, 1];
                 ay = Ant.AntList[n, 2];
                 ad = Ant.AntList[n, 3];
-                Console.WriteLine(ad);
 
                 // add field hit counter +1
                 if (ax != 0 && ay != 0)
@@ -423,6 +433,8 @@ namespace SWARMulator
                 }
                 
                 e.Graphics.FillEllipse(Brushes.Black, (ax * 30) - 25, (ay * 30) - 25, 20, 20);
+                //Image ant = new Bitmap(SWARMulator.Properties.Resources.ant);
+                //g.DrawImage(ant, new Point((ax * 30) - 30, (ay * 30) - 30));
 
                 if (Settings.Running && ax != 0 && ay != 0)
                 {
@@ -498,18 +510,10 @@ namespace SWARMulator
                         U = true;
                     }
 
-                    List<string> directions = new List<string>();
-
-                    if (R) directions.Add("R");
-                    if (L) directions.Add("L");
-                    if (D) directions.Add("D");
-                    if (U) directions.Add("U");
-
-                    string[] directionsList = directions.ToArray();
                     string direc = "";
 
                     // if no possible direction
-                    if (directionsList.Length == 0)
+                    if (NumOfDirections == 0)
                     {
                         if (ad == 1)
                         {
@@ -527,10 +531,64 @@ namespace SWARMulator
                         {
                             direc = "D";
                         }
+                        Console.WriteLine("No direction free");
                     } else
                     {
-                        int rnd = random.Next(0, NumOfDirections);
-                        direc = directionsList[rnd];
+                        if (NumOfDirections == 1)
+                        {
+                            NumOfDirections = 2;
+                        }
+                        // count all uses from around fields
+                        int usesR = 0;
+                        int usesL = 0;
+                        int usesU = 0;
+                        int usesD = 0;
+                        if (R)
+                        {
+                            usesR = FieldUses[fieldR, 2];
+                        }
+                        if (L)
+                        {
+                            usesL = FieldUses[fieldL, 2];
+                        }
+                        if (U)
+                        {
+                            usesU = FieldUses[fieldU, 2];
+                        }
+                        if (D)
+                        {
+                            usesD = FieldUses[fieldD, 2];
+                        }
+                        int allUses = usesR + usesL + usesU + usesD;
+                        int chanceR = 0;
+                        int chanceL = 0;
+                        int chanceU = 0;
+                        int chanceD = 0;
+                        if (allUses != 0)
+                        {
+                            chanceR = usesR * 100 / allUses;
+                            chanceL = usesL * 100 / allUses;
+                            chanceU = usesU * 100 / allUses;
+                            chanceD = usesD * 100 / allUses;
+                            Console.WriteLine(n + "All: " + allUses + " R: " + chanceR + " : " + usesR + " L: " + chanceL + " : " + usesL + " U: " + chanceU + " : " + usesU + " D: " + chanceD + " : " + usesD);
+
+                            if (chanceR > 0 && chanceR < 100) chanceR = (100 - chanceR) / (NumOfDirections - 1);
+                            if (chanceL > 0 && chanceL < 100) chanceL = (100 - chanceL) / (NumOfDirections - 1);
+                            if (chanceU > 0 && chanceU < 100) chanceU = (100 - chanceU) / (NumOfDirections - 1);
+                            if (chanceD > 0 && chanceD < 100) chanceD = (100 - chanceD) / (NumOfDirections - 1);
+                        }
+
+                        Console.WriteLine(n + "All: " + allUses + " R: " + chanceR + " : " + usesR + " L: " + chanceL + " : " + usesL + " U: " + chanceU + " : " + usesU + " D: " + chanceD + " : " + usesD);
+
+                        chanceL = chanceL + chanceR;
+                        chanceU = chanceU + chanceL;
+                        chanceD = chanceD + chanceU;
+
+                        int rnd = random.Next(1, 101);
+                        if (rnd <= chanceR) direc = "R";
+                        if (chanceR < rnd && rnd <= chanceL) direc = "L";
+                        if (chanceL < rnd && rnd <= chanceU) direc = "U";
+                        if (chanceU < rnd) direc = "D";
                     }
 
                     if (direc == "R")
